@@ -1,0 +1,375 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          String    @default("SECRETARY") // EXECUTIVE, LAWYER, SECRETARY, ACCOUNTANT, CLIENT, ASSISTANT, ARCHIVER, CUSTOMER_SERVICE, TRAINEE, PARTNER
+  phone         String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  assignedCases Case[]    @relation("LawyerCases")
+  createdCases  Case[]    @relation("CreatedCases")
+  appointments  Appointment[]
+  sessions      AccountSession[]
+  
+  // New relations
+  activityLogs  ActivityLog[]
+  caseComments  CaseComment[]
+  assignedTasks Task[]     @relation("AssignedTo")
+  createdTasks  Task[]     @relation("CreatedBy")
+  notifications Notification[]
+  caseTimeline  CaseTimeline[]
+
+  // Relations for Client Portal and Chat/Meetings
+  clientId      String?   @unique
+  client        Client?   @relation(fields: [clientId], references: [id])
+  chatMessages  ChatMessage[]
+  hostedMeetings Meeting[]   @relation("HostedMeetings")
+  participatedMeetings Meeting[] @relation("MeetingParticipants")
+}
+
+model AccountSession {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Client {
+  id            String   @id @default(cuid())
+  name          String
+  nationalId    String?  @unique
+  phone         String
+  email         String?
+  address       String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  cases         Case[]
+  contracts     Contract[]
+  user          User?
+}
+
+model Case {
+  id             String    @id @default(cuid())
+  caseNumber     String    @unique
+  title          String
+  type           String    @default("OTHER")
+  status         String    @default("ACTIVE")
+  court          String?
+  description    String?
+  startDate      DateTime  @default(now())
+  closedDate     DateTime?
+  nextSession    DateTime?
+  appealDeadline DateTime?
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  clientId      String
+  client        Client     @relation(fields: [clientId], references: [id])
+  lawyerId      String?
+  lawyer        User?      @relation("LawyerCases", fields: [lawyerId], references: [id])
+  createdById   String
+  createdBy     User       @relation("CreatedCases", fields: [createdById], references: [id])
+
+  sessions      HearingSession[]
+  documents     Document[]
+  contract      Contract?
+  expenses      CaseExpense[]
+  comments      CaseComment[]   @relation("Comments")
+  timeline      CaseTimeline[]  @relation("Timeline")
+  tasks         Task[]
+}
+
+model HearingSession {
+  id        String   @id @default(cuid())
+  date      DateTime
+  court     String?
+  result    String?
+  notes     String?
+  nextDate  DateTime?
+  createdAt DateTime @default(now())
+
+  caseId    String
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+}
+
+model Document {
+  id         String   @id @default(cuid())
+  name       String
+  fileUrl    String
+  fileType   String?
+  uploadedAt DateTime @default(now())
+
+  caseId     String
+  case       Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+}
+
+model Contract {
+  id             String   @id @default(cuid())
+  contractNumber String   @unique
+  totalAmount    Float
+  paidAmount     Float    @default(0)
+  paymentStatus  String   @default("PENDING")
+  startDate      DateTime @default(now())
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  caseId         String   @unique
+  case           Case     @relation(fields: [caseId], references: [id])
+  clientId       String
+  client         Client   @relation(fields: [clientId], references: [id])
+
+  invoices       Invoice[]
+  receipts       Receipt[]
+}
+
+model Invoice {
+  id            String   @id @default(cuid())
+  invoiceNumber String   @unique
+  amount        Float
+  dueDate       DateTime?
+  status        String   @default("PENDING")
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  contractId    String
+  contract      Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+}
+
+model Receipt {
+  id            String   @id @default(cuid())
+  receiptNumber String   @unique
+  amount        Float
+  paymentDate   DateTime @default(now())
+  paymentMethod String   @default("cash")
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  contractId    String
+  contract      Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+}
+
+model CaseExpense {
+  id          String   @id @default(cuid())
+  description String
+  amount      Float
+  date        DateTime @default(now())
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  caseId      String
+  case        Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+}
+
+model Appointment {
+  id         String   @id @default(cuid())
+  title      String
+  date       DateTime
+  duration   Int      @default(60)
+  clientName String?
+  phone      String?
+  notes      String?
+  status     String   @default("SCHEDULED")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String
+  excerpt     String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  clientName String
+  rating     Int      @default(5)
+  content    String
+  approved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ============ NEW MODELS ============
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // "CREATE", "UPDATE", "DELETE", etc
+  entity    String   // "CASE", "CLIENT", "CONTRACT", etc
+  entityId  String
+  changes   String?  // JSON string of what changed
+  ip        String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([entityId])
+  @@index([createdAt])
+}
+
+model CaseComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  caseId    String
+  case      Case     @relation("Comments", fields: [caseId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([caseId])
+  @@index([userId])
+}
+
+model CaseTimeline {
+  id        String   @id @default(cuid())
+  title     String
+  description String?
+  type      String   // "STATUS_CHANGE", "SESSION", "DOCUMENT", "PAYMENT", etc
+  createdAt DateTime @default(now())
+
+  caseId    String
+  case      Case     @relation("Timeline", fields: [caseId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([caseId])
+  @@index([userId])
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      String   @default("TODO") // "TODO", "IN_PROGRESS", "DONE"
+  priority    String   @default("MEDIUM") // "LOW", "MEDIUM", "HIGH"
+  dueDate     DateTime?
+  attachments String?  // JSON array of file URLs
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  caseId      String?
+  case        Case?    @relation(fields: [caseId], references: [id], onDelete: SetNull)
+  assignedToId String
+  assignedTo  User     @relation("AssignedTo", fields: [assignedToId], references: [id], onDelete: Cascade)
+  createdById String
+  createdBy   User     @relation("CreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([assignedToId])
+  @@index([caseId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   // "TASK", "CASE", "APPOINTMENT", "ALERT"
+  read      Boolean  @default(false)
+  actionUrl String?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+}
+
+model Meeting {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime
+  link        String?
+  createdAt   DateTime @default(now())
+  hostId      String
+  host        User     @relation("HostedMeetings", fields: [hostId], references: [id])
+  participants User[]   @relation("MeetingParticipants")
+}
+
+model Setting {
+  id          String   @id @default("global")
+  siteName    String   @default("مكتب المحامية رقية")
+  logoUrl     String?
+  slogan      String?
+  heroTitle   String?
+  heroSubtitle String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CmsConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model News {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  imageUrl    String?
+  published   Boolean  @default(false)
+  publishDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
