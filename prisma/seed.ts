@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const managerPassword        = await bcrypt.hash("admin123",     12);
+  const contentPassword        = await bcrypt.hash("content123",   12);
   const legalSecretaryPassword = await bcrypt.hash("secretary123", 12);
   const lawyerPassword         = await bcrypt.hash("lawyer123",    12);
 
@@ -16,6 +17,14 @@ async function main() {
       role:     "MANAGER",
       phone:    "0538225224",
       password: managerPassword,
+    },
+    // ── مدير المحتوى ─────────────────────────────────────────────────
+    {
+      email:    "content@lawoffice.sa",
+      name:     "مدير المحتوى",
+      role:     "MANAGER",
+      phone:    "",
+      password: contentPassword,
     },
     // ── السكرتير القانوني ────────────────────────────────────────────
     {

@@ -25,14 +25,7 @@ export default async function AboutPage() {
     <>
       {/* Header Banner */}
       <section className="relative bg-[#0B1325] py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={settings.aboutImage || "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"}
-            alt="من نحن"
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0B1325]/80 to-[#0B1325]" />
-        </div>
+        <div className="absolute inset-0 z-0" style={{ background: "linear-gradient(145deg, #040812 0%, #0B1325 60%, #0F1B30 100%)" }} />
         <div className="container mx-auto px-6 text-center relative z-10">
           <h1 className="text-4xl font-bold text-white mb-2 font-arabic">من نحن</h1>
           <div className="w-12 h-1 bg-[#C5A059] mx-auto rounded-full" />
@@ -57,7 +50,7 @@ export default async function AboutPage() {
                 <div className="absolute inset-0 border border-slate-300 rounded-[40px] transform translate-x-3 translate-y-3" />
                 <div className="absolute inset-0 rounded-[40px] overflow-hidden border-2 border-white shadow-xl">
                   <img
-                    src={settings.aboutImage || "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"}
+                    src={settings.aboutImage || "/images/hero-slide-3.png"}
                     alt="شركة رقية عبدالرحمن"
                     className="w-full h-full object-cover"
                   />

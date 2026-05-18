@@ -14,8 +14,8 @@ export default async function ServicesPage() {
       {/* HERO */}
       <div className="relative bg-[#0B1325] text-white py-24 overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1453945619913-79ec89a82c51?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')` }}
+          className="absolute inset-0 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: `url('/images/hero-slide-3.png')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325] via-transparent to-[#0B1325]/80" />
         <div className="container mx-auto px-6 relative z-10 text-right">

@@ -44,7 +44,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       title: "شركة رقية عبدالرحمن",
       subtitle: cmsData.settings.slogan || "ندافع عن حقك، لأنك تستحقه",
       desc: "خبرة واسعة في تقديم الاستشارات القانونية والشرعية وصياغة العقود وتمثيل موكلينا أمام جميع المحاكم والجهات القضائية.",
-      img: "https://images.unsplash.com/photo-1453945619913-79ec89a82c51?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      img: "",
       buttons: [
         { text: "استكشف المزيد", link: "/services", style: "filled" },
       ],
@@ -55,7 +55,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       title: "العدالة والنزاهة والكفاءة",
       subtitle: "قيم نؤمن بها ونحميها",
       desc: "نسعى لتقديم حلول قانونية وقائية متكاملة للأفراد والشركات لحمايتها ودعم نموها المستقر وفق الأنظمة واللوائح المعمول بها في المملكة.",
-      img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      img: "",
       buttons: [
         { text: "تواصل معنا", link: "/contact", style: "filled" },
       ],
@@ -102,15 +102,19 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               idx === activeHero ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            {/* Background Image (With slow zoom effect) */}
-            <div 
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-[15000ms] ease-linear ${
-                idx === activeHero ? "scale-110" : "scale-100"
-              }`}
-              style={{ backgroundImage: `url('${slide.img}')` }}
-            />
+            {/* Background Image or Gradient */}
+            {slide.img ? (
+              <div
+                className={`absolute inset-0 bg-cover bg-center transition-transform duration-[15000ms] ease-linear ${
+                  idx === activeHero ? "scale-110" : "scale-100"
+                }`}
+                style={{ backgroundImage: `url('${slide.img}')` }}
+              />
+            ) : (
+              <div className="absolute inset-0" style={{ background: "linear-gradient(145deg, #040812 0%, #0B1325 50%, #0F1B30 100%)" }} />
+            )}
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-black/40" />
 
             {/* Content */}
             <div className={`absolute inset-0 z-20 text-white px-4 max-w-5xl mx-auto flex flex-col items-center text-center justify-center transition-all duration-1000 ${
@@ -284,12 +288,8 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
 
       {/* ══════════ WHY CHOOSE US SECTION ══════════ */}
       <div className="relative py-24 bg-white overflow-hidden">
-        {/* Background Image & Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')" }}
-        />
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px]" />
+        {/* Background */}
+        <div className="absolute inset-0 bg-white" />
 
         <div className="container mx-auto px-4 relative z-10">
           

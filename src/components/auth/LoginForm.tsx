@@ -159,14 +159,13 @@ export default function LoginForm() {
         <p className="text-xs font-bold mb-3 text-center" style={{ color: "#D4A373" }}>🔑 دخول سريع (حسابات تجريبية):</p>
         <div className="grid grid-cols-2 gap-2 text-xs">
           {[
-            { name: "المدير العام", role: "صلاحيات مطلقة", email: "manager@lawoffice.sa", pass: "123456" },
-            { name: "مدير المحتوى", role: "الموقع الإلكتروني", email: "content@lawoffice.sa", pass: "123456" },
-            { name: "المحاسب المالي", role: "الشؤون المالية", email: "accountant@lawoffice.sa", pass: "123456" },
-            { name: "مدير الموارد البشرية", role: "شؤون الموظفين", email: "hr@lawoffice.sa", pass: "123456" },
-            { name: "المحامي الأساسي", role: "إدارة القضايا", email: "lawyer@lawoffice.sa", pass: "123456" },
-            { name: "المستشار القانوني", role: "الاستشارات والعقود", email: "advisor@lawoffice.sa", pass: "123456" },
-            { name: "السكرتير القانوني", role: "تنظيم وجدولة", email: "secretary@lawoffice.sa", pass: "123456" },
-            { name: "موظف الاستقبال", role: "طلبات التواصل", email: "reception@lawoffice.sa", pass: "123456" },
+            { name: "المدير العام",      role: "صلاحيات مطلقة",   email: "ruqayyah@lawoffice.sa",  pass: "admin123" },
+            { name: "مدير المحتوى",      role: "الموقع الإلكتروني", email: "content@lawoffice.sa",   pass: "content123" },
+            { name: "السكرتير القانوني", role: "تنظيم وجدولة",    email: "secretary@lawoffice.sa", pass: "secretary123" },
+            { name: "محامية: حصة",       role: "محامي",            email: "lawyer1@lawoffice.sa",   pass: "lawyer123" },
+            { name: "محامي: عبدالله",    role: "محامي",            email: "lawyer2@lawoffice.sa",   pass: "lawyer123" },
+            { name: "محامي: فردان",      role: "محامي",            email: "lawyer3@lawoffice.sa",   pass: "lawyer123" },
+            { name: "محامي: معاذ",       role: "محامي",            email: "lawyer4@lawoffice.sa",   pass: "lawyer123" },
           ].map((u) => (
             <div
               key={u.email}
