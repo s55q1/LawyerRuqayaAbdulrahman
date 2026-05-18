@@ -74,32 +74,24 @@ export default async function AboutPage() {
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {settings.vision && (
-                <div className="relative bg-[#0B1325] rounded-3xl overflow-hidden p-8 text-white min-h-[200px] flex flex-col justify-between group">
-                  <div className="absolute inset-0 z-0 opacity-30">
-                    <img src="https://images.unsplash.com/photo-1453945619913-79ec89a82c51?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Vision" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325] via-transparent to-[#0B1325]/50 z-0" />
-                  <div className="relative z-10">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[200px] flex flex-col justify-between border border-[#C5A059]/10">
+                  <div>
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="flex-1 h-0.5 bg-white/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rotate-45" /></div>
-                      <h3 className="text-2xl font-bold font-arabic">رؤيتنا</h3>
+                      <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
+                      <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رؤيتنا</h3>
                     </div>
-                    <p className="text-slate-200 text-sm leading-relaxed">{settings.vision}</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{settings.vision}</p>
                   </div>
                 </div>
               )}
               {settings.mission && (
-                <div className="relative bg-[#0B1325] rounded-3xl overflow-hidden p-8 text-white min-h-[200px] flex flex-col justify-between group">
-                  <div className="absolute inset-0 z-0 opacity-30">
-                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Mission" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325] via-transparent to-[#0B1325]/50 z-0" />
-                  <div className="relative z-10">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[200px] flex flex-col justify-between border border-[#C5A059]/10">
+                  <div>
                     <div className="flex items-center gap-4 mb-4">
-                      <h3 className="text-2xl font-bold font-arabic">رسالتنا</h3>
-                      <div className="flex-1 h-0.5 bg-white/30 relative"><div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rotate-45" /></div>
+                      <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رسالتنا</h3>
+                      <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
                     </div>
-                    <p className="text-slate-200 text-sm leading-relaxed">{settings.mission}</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{settings.mission}</p>
                   </div>
                 </div>
               )}

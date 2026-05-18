@@ -375,14 +375,20 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               </div>
             </div>
 
-            {/* Left Side: Image */}
+            {/* Left Side: Decorative Card */}
             <div className="w-full lg:w-1/2">
-              <div className="relative rounded-3xl overflow-hidden shadow-xl h-[450px]">
-                <img
-                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                  alt="قيمنا"
-                  className="w-full h-full object-cover"
-                />
+              <div className="relative rounded-3xl h-[450px] bg-[#0B1325] flex flex-col items-center justify-center gap-6 shadow-xl overflow-hidden">
+                {/* Gold ring */}
+                <div className="absolute w-80 h-80 rounded-full border border-[#C5A059]/10" />
+                <div className="absolute w-60 h-60 rounded-full border border-[#C5A059]/15" />
+                <div className="absolute w-40 h-40 rounded-full border border-[#C5A059]/20" />
+                {/* Icon */}
+                <Scale size={72} className="text-[#C5A059] relative z-10" strokeWidth={1} />
+                {/* Text */}
+                <div className="text-center relative z-10 px-8">
+                  <p className="text-[#C5A059] font-bold text-xl mb-2">شركة رقية عبدالرحمن</p>
+                  <p className="text-white/60 text-sm leading-relaxed">ندافع عن حقك، لأنك تستحقه</p>
+                </div>
               </div>
             </div>
 
