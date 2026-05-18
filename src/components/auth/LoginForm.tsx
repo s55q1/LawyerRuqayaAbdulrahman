@@ -172,6 +172,7 @@ export default function LoginForm() {
               key={u.email}
               onClick={() => {
                 setForm({ email: u.email, password: u.pass });
+                quickSubmit(u.email, u.pass);
               }}
 
               className="p-3 rounded-xl cursor-pointer transition-all duration-200 text-center"
