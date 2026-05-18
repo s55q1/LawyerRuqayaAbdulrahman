@@ -4,6 +4,19 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
+  // ── ترحيل الأدوار القديمة ────────────────────────────────────────
+  await prisma.user.updateMany({
+    where: { role: { in: ["SECRETARY", "ACCOUNTANT", "HR_MANAGER", "RECEPTIONIST", "CUSTOMER_SERVICE", "ARCHIVER", "CONTENT_MANAGER"] } },
+    data: { role: "LEGAL_SECRETARY" },
+  });
+  await prisma.user.updateMany({
+    where: { role: { in: ["ASSISTANT", "TRAINEE", "PARTNER", "ADVISOR"] } },
+    data: { role: "LAWYER" },
+  });
+  await prisma.user.updateMany({
+    where: { role: "EXECUTIVE" },
+    data: { role: "MANAGER" },
+  });
   const managerPassword        = await bcrypt.hash("admin123",     12);
   const contentPassword        = await bcrypt.hash("admin123",     12);
   const legalSecretaryPassword = await bcrypt.hash("secretary123", 12);

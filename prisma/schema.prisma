@@ -14,7 +14,7 @@ model User {
   name          String
   email         String    @unique
   password      String
-  role          String    @default("SECRETARY") // EXECUTIVE, LAWYER, SECRETARY, ACCOUNTANT, CLIENT, ASSISTANT, ARCHIVER, CUSTOMER_SERVICE, TRAINEE, PARTNER
+  role          String    @default("LEGAL_SECRETARY") // MANAGER, LAWYER, LEGAL_SECRETARY
   phone         String?
   isActive      Boolean   @default(true)
   createdAt     DateTime  @default(now())

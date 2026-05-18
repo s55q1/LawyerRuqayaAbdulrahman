@@ -9,6 +9,20 @@ export type SessionUser = {
   role: string;
 };
 
+// Maps any legacy role string to one of the 3 active roles
+function normalizeRole(role: string): string {
+  const secretaryRoles = new Set([
+    "SECRETARY", "ACCOUNTANT", "HR_MANAGER", "RECEPTIONIST",
+    "CUSTOMER_SERVICE", "ARCHIVER", "CONTENT_MANAGER",
+  ]);
+  const lawyerRoles = new Set(["ASSISTANT", "TRAINEE", "PARTNER", "ADVISOR"]);
+
+  if (secretaryRoles.has(role)) return "LEGAL_SECRETARY";
+  if (lawyerRoles.has(role))    return "LAWYER";
+  if (role === "EXECUTIVE")     return "MANAGER";
+  return role; // MANAGER, LAWYER, LEGAL_SECRETARY pass through unchanged
+}
+
 export async function getSession(): Promise<SessionUser | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get("auth-token")?.value;
@@ -27,7 +41,7 @@ export async function getSession(): Promise<SessionUser | null> {
     id: session.user.id,
     name: session.user.name,
     email: session.user.email,
-    role: session.user.role,
+    role: normalizeRole(session.user.role),
   };
 }
 
