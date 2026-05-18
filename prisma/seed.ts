@@ -68,7 +68,7 @@ async function main() {
   for (const acc of accounts) {
     await prisma.user.upsert({
       where:  { email: acc.email },
-      update: { role: acc.role, name: acc.name, phone: acc.phone, isActive: true },
+      update: { role: acc.role, name: acc.name, phone: acc.phone, isActive: true, password: acc.password },
       create: { name: acc.name, email: acc.email, password: acc.password, role: acc.role, phone: acc.phone, isActive: true },
     });
   }
