@@ -13,9 +13,10 @@ import { ROLE_LABELS } from "@/lib/roles";
 interface NewTaskFormProps {
   users: Array<{ id: string; name: string; role: string }>;
   cases: Array<{ id: string; title: string; caseNumber: string }>;
+  onSuccess?: () => void;
 }
 
-export default function NewTaskForm({ users, cases }: NewTaskFormProps) {
+export default function NewTaskForm({ users, cases, onSuccess }: NewTaskFormProps) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -99,8 +100,13 @@ export default function NewTaskForm({ users, cases }: NewTaskFormProps) {
       if (result.success) {
         setSuccess(true);
         setTimeout(() => {
-          router.push("/dashboard/tasks");
-          router.refresh();
+          if (onSuccess) {
+            onSuccess();
+            router.refresh();
+          } else {
+            router.push("/dashboard/tasks");
+            router.refresh();
+          }
         }, 1500);
       }
     } catch (err: any) {
