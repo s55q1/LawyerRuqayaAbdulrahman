@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { formatDate, formatDateTime, formatCurrency, CASE_STATUS_LABELS, CASE_TYPE_LABELS } from "@/lib/utils";
 import { Scale, Calendar, FileText, DollarSign, Plus, AlertTriangle } from "lucide-react";
 import Link from "next/link";
+import AssignLawyerModal from "@/components/dashboard/cases/AssignLawyerModal";
 
 export default async function CaseDetailPage({
   params,
@@ -38,6 +39,14 @@ export default async function CaseDetailPage({
   const canSeeFinance = session.role === "MANAGER" || session.role === "LEGAL_SECRETARY";
   const totalExpenses = caseData.expenses.reduce((sum, e) => sum + e.amount, 0);
 
+  const lawyers = canEdit
+    ? await prisma.user.findMany({
+        where: { role: "LAWYER", isActive: true },
+        select: { id: true, name: true, _count: { select: { assignedCases: true } } },
+        orderBy: { name: "asc" },
+      })
+    : [];
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -64,9 +73,16 @@ export default async function CaseDetailPage({
           </div>
         </div>
         {canEdit && (
-          <Link href={`/dashboard/cases/${id}/edit`} className="btn-primary">
-            تعديل القضية
-          </Link>
+          <div className="flex items-center gap-3">
+            <AssignLawyerModal
+              caseId={id}
+              lawyers={lawyers}
+              currentLawyerId={caseData.lawyerId}
+            />
+            <Link href={`/dashboard/cases/${id}/edit`} className="btn-primary">
+              تعديل القضية
+            </Link>
+          </div>
         )}
       </div>
 
