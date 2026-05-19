@@ -80,13 +80,7 @@ export default async function AboutPage() {
                       <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
                       <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رؤيتنا</h3>
                     </div>
-                    <p className="text-slate-200 text-base leading-relaxed mb-6 font-arabic">{settings.vision}</p>
-                    <div className="border-t border-white/10 pt-4 mt-auto">
-                      <span className="text-[#C5A059] font-semibold text-xs tracking-wider uppercase block mb-1">Our Vision</span>
-                      <p className="text-slate-400 text-xs md:text-sm leading-relaxed" style={{ fontStyle: "italic" }}>
-                        Leadership and excellence in providing various legal services and consultations professionally and staying at the forefront of trusted law firms locally, regionally, and internationally.
-                      </p>
-                    </div>
+                    <p className="text-slate-200 text-base leading-relaxed font-arabic">{settings.vision}</p>
                   </div>
                 </div>
               )}
