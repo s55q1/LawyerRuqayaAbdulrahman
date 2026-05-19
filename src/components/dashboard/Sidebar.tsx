@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
   { href: "/dashboard/finance",  label: "الحسابات",      icon: <DollarSign       className="w-[18px] h-[18px]" />, roles: ["MANAGER","LEGAL_SECRETARY"] },
   { href: "/dashboard/calendar", label: "التقويم",       icon: <Calendar         className="w-[18px] h-[18px]" />, roles: ["MANAGER","LAWYER","LEGAL_SECRETARY"] },
   { href: "/dashboard/messages", label: "الرسائل",       icon: <MessageSquare    className="w-[18px] h-[18px]" />, roles: ["MANAGER","LEGAL_SECRETARY"] },
-  { href: "/dashboard/staff",    label: "الفريق",        icon: <UserCog          className="w-[18px] h-[18px]" />, roles: ["MANAGER"] },
+  { href: "/dashboard/staff",    label: "الفريق",        icon: <UserCog          className="w-[18px] h-[18px]" />, roles: ["MANAGER", "LEGAL_SECRETARY"] },
   { href: "/dashboard/settings", label: "الإعدادات",     icon: <Settings         className="w-[18px] h-[18px]" />, roles: ["MANAGER"] },
 ];
 

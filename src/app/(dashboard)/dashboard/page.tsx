@@ -79,6 +79,29 @@ export default async function DashboardPage() {
     ? await prisma.client.findMany({ take: 5, orderBy: { createdAt: "desc" } })
     : [];
 
+  // 48-hour deadline reminders
+  const now = new Date();
+  const in48h = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+  const deadlineWhere = {
+    dueDate: { gte: now, lte: in48h },
+    status: { notIn: ["DONE", "COMPLETED"] },
+  };
+  const upcomingTaskDeadlines = await prisma.task.findMany({
+    where: {
+      ...deadlineWhere,
+      ...(isLawyer ? { assignedToId: session.id } : {}),
+    },
+    select: { id: true, title: true, dueDate: true, assignedTo: { select: { name: true } } },
+    orderBy: { dueDate: "asc" },
+    take: 5,
+  });
+  const upcomingCaseDeadlines = (isManager || isLegalSecretary) ? await prisma.case.findMany({
+    where: { nextSession: { gte: now, lte: in48h }, status: "ACTIVE" },
+    select: { id: true, title: true, nextSession: true, lawyer: { select: { name: true } } },
+    orderBy: { nextSession: "asc" },
+    take: 5,
+  }) : [];
+
   // Pending approvals for admins
   const [pendingCases, pendingTasks, allLawyers, allUsers] = (isManager || isLegalSecretary)
     ? await Promise.all([
@@ -162,6 +185,47 @@ export default async function DashboardPage() {
               <span className="text-xs font-bold text-slate-600">{item.label}</span>
             </Link>
           ))}
+        </div>
+      )}
+
+      {/* 48-hour deadline reminders */}
+      {(upcomingTaskDeadlines.length > 0 || upcomingCaseDeadlines.length > 0) && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-amber-600 text-lg">⏰</span>
+            <h2 className="text-sm font-extrabold text-amber-800">مواعيد استحقاق خلال 48 ساعة</h2>
+            <span className="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+              {upcomingTaskDeadlines.length + upcomingCaseDeadlines.length}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {upcomingTaskDeadlines.map(t => (
+              <Link key={t.id} href={`/dashboard/tasks/${t.id}`}
+                className="flex items-center justify-between p-3 bg-white rounded-xl border border-amber-100 hover:border-amber-300 transition-colors"
+              >
+                <div>
+                  <p className="text-sm font-bold text-slate-800">{t.title}</p>
+                  <p className="text-xs text-slate-400">مهمة · {t.assignedTo.name}</p>
+                </div>
+                <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
+                  {t.dueDate ? new Intl.DateTimeFormat("ar-SA", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(t.dueDate)) : ""}
+                </span>
+              </Link>
+            ))}
+            {upcomingCaseDeadlines.map(c => (
+              <Link key={c.id} href={`/dashboard/cases/${c.id}`}
+                className="flex items-center justify-between p-3 bg-white rounded-xl border border-amber-100 hover:border-amber-300 transition-colors"
+              >
+                <div>
+                  <p className="text-sm font-bold text-slate-800">{c.title}</p>
+                  <p className="text-xs text-slate-400">جلسة قضية · {c.lawyer?.name}</p>
+                </div>
+                <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
+                  {c.nextSession ? new Intl.DateTimeFormat("ar-SA", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(c.nextSession)) : ""}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

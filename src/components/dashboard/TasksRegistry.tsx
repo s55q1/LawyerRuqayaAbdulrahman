@@ -248,7 +248,7 @@ export default function TasksRegistry({ initialTasks }: TasksRegistryProps) {
                       <tr key={task.id} className="hover:bg-[#FAF8F5] transition-colors">
 
                         <td className="px-6 py-5">
-                          <div className="font-bold text-[#1E293B] text-sm">{task.title}</div>
+                          <Link href={`/dashboard/tasks/${task.id}`} className="font-bold text-[#1E293B] text-sm hover:text-[#C5A059] transition-colors">{task.title}</Link>
                           {task.description && (
                             <p className="text-xs text-slate-400 mt-1 max-w-sm truncate">{task.description}</p>
                           )}
@@ -391,7 +391,7 @@ function BoardCard({ task, onUpdateStatus, actionLoading }: { task: any; onUpdat
   return (
     <div className="bg-[#FAF8F5] p-4 rounded-xl border border-[#EADFD3] hover:border-[#C5A059]/40 hover:shadow-sm transition-all space-y-3">
       <div className="flex justify-between items-start gap-2">
-        <h4 className="text-sm font-bold text-[#1E293B] leading-snug">{task.title}</h4>
+        <Link href={`/dashboard/tasks/${task.id}`} className="text-sm font-bold text-[#1E293B] leading-snug hover:text-[#C5A059] transition-colors">{task.title}</Link>
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${
           task.priority === "HIGH" ? "bg-red-50 text-red-600 border border-red-200" :
           task.priority === "MEDIUM" ? "bg-amber-50 text-amber-600 border border-amber-200" :

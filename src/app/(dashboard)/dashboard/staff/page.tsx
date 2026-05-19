@@ -21,7 +21,7 @@ const ROLE_BADGE_STYLE: Record<string, { bg: string; text: string }> = {
 
 export default async function StaffPage() {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER")) redirect("/dashboard");
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) redirect("/dashboard");
 
   const staff = await prisma.user.findMany({
     orderBy: [{ role: "asc" }, { createdAt: "asc" }],
