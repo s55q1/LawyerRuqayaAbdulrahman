@@ -140,7 +140,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                   </span>
                   <img src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-6 object-contain" />
                   <div className="mb-6 inline-block">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white">
                       {slide.title}
                     </h1>
                   </div>
@@ -174,7 +174,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                       {slide.topText}
                     </p>
                   )}
-                  <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight max-w-4xl">
+                  <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight max-w-4xl">
                     {slide.title}
                   </h1>
                   <p className="text-sm md:text-lg text-slate-200 max-w-3xl mb-10 leading-relaxed font-medium">
