@@ -57,9 +57,10 @@ export default async function AboutPage() {
                 <div className="absolute inset-0 border border-slate-300 rounded-[40px] transform translate-x-3 translate-y-3" />
                 <div className="absolute inset-0 rounded-[40px] overflow-hidden border-2 border-white shadow-xl">
                   <img
-                    src={settings.aboutImage || "/images/hero-slide-3.png"}
+                    src={settings.aboutImage || "/images/about-team.jpg"}
                     alt="شركة رقية عبدالرحمن"
                     className="w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).src = "/images/about-team.jpg"; }}
                   />
                 </div>
               </div>
