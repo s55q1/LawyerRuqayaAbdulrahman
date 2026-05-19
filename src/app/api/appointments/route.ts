@@ -18,6 +18,8 @@ export async function POST(req: NextRequest) {
         clientName: data.clientName || null,
         phone: data.phone || null,
         notes: data.notes || null,
+        caseType: data.caseType || null,
+        lawyerId: data.lawyerId || null,
         userId: data.userId,
       },
     });

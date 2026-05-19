@@ -1,8 +1,14 @@
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { Calendar, Clock, Phone, User, Bell } from "lucide-react";
+import { Calendar, Clock, Phone, User, Bell, Scale } from "lucide-react";
 import NewAppointmentModal from "@/components/dashboard/calendar/NewAppointmentModal";
 import CalendarGrid from "@/components/dashboard/calendar/CalendarGrid";
+
+const CASE_TYPE_LABELS: Record<string, string> = {
+  LABOR: "عمالية", PERSONAL_STATUS: "أحوال شخصية",
+  COMMERCIAL: "تجارية", EXECUTION: "تنفيذ",
+  CONSULTATION: "استشارات", OTHER: "أخرى",
+};
 
 const STATUS_BADGE: Record<string, string> = {
   SCHEDULED: "bg-blue-500/10 text-blue-400",
@@ -28,13 +34,15 @@ export default async function CalendarPage() {
 
   const isManager = session.role === "MANAGER" || session.role === "LEGAL_SECRETARY";
 
-  const [appointments, hearingSessions] = await Promise.all([
+  const [appointments, hearingSessions, lawyers] = await Promise.all([
     prisma.appointment.findMany({
       where: {
         date: { gte: new Date() },
-        ...(isManager ? {} : { userId: session.id }),
+        ...(isManager ? {} : {
+          OR: [{ userId: session.id }, { lawyerId: session.id }],
+        }),
       },
-      include: { user: true },
+      include: { user: true, lawyer: true },
       orderBy: { date: "asc" },
     }),
     prisma.hearingSession.findMany({
@@ -42,6 +50,11 @@ export default async function CalendarPage() {
       include: { case: { include: { client: true } } },
       orderBy: { date: "asc" },
       take: 50,
+    }),
+    prisma.user.findMany({
+      where: { isActive: true, role: { in: ["LAWYER", "MANAGER", "LEGAL_SECRETARY"] } },
+      select: { id: true, name: true, role: true },
+      orderBy: { name: "asc" },
     }),
   ]);
 
@@ -74,7 +87,7 @@ export default async function CalendarPage() {
             {appointments.length} موعد · {hearingSessions.length} جلسة قادمة
           </p>
         </div>
-        <NewAppointmentModal userId={session.id} />
+        <NewAppointmentModal userId={session.id} lawyers={lawyers} />
       </div>
 
       {/* Urgent Notifications */}
@@ -168,12 +181,22 @@ export default async function CalendarPage() {
                             <span dir="ltr">{apt.phone}</span>
                           </span>
                         )}
+                        {apt.caseType && (
+                          <span className="flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full"
+                            style={{ background: "rgba(197,160,89,0.12)", color: "#C5A059" }}>
+                            <Scale className="w-3 h-3" />
+                            {CASE_TYPE_LABELS[apt.caseType] || apt.caseType}
+                          </span>
+                        )}
                       </div>
-                      {isManager && (
-                        <div className="text-xs mt-1" style={{ color: "#4A6080" }}>
-                          المسؤول: {apt.user.name}
-                        </div>
-                      )}
+                      <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1 text-xs" style={{ color: "#4A6080" }}>
+                        {apt.lawyer && (
+                          <span>المحامي: <span className="font-semibold" style={{ color: "#C5A059" }}>{apt.lawyer.name}</span></span>
+                        )}
+                        {isManager && (
+                          <span>أُنشئ بواسطة: {apt.user.name}</span>
+                        )}
+                      </div>
                       {apt.notes && (
                         <p className="text-xs mt-1 italic" style={{ color: "#4A6080" }}>{apt.notes}</p>
                       )}

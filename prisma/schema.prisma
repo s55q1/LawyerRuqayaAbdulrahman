@@ -22,7 +22,8 @@ model User {
 
   assignedCases Case[]    @relation("LawyerCases")
   createdCases  Case[]    @relation("CreatedCases")
-  appointments  Appointment[]
+  appointments        Appointment[]
+  lawyerAppointments  Appointment[] @relation("LawyerAppointments")
   sessions      AccountSession[]
   
   // New relations
@@ -191,11 +192,14 @@ model Appointment {
   phone      String?
   notes      String?
   status     String   @default("SCHEDULED")
+  caseType   String?
+  lawyerId   String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
   userId     String
   user       User     @relation(fields: [userId], references: [id])
+  lawyer     User?    @relation("LawyerAppointments", fields: [lawyerId], references: [id])
 }
 
 model BlogPost {
