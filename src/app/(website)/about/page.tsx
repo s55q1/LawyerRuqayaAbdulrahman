@@ -157,20 +157,14 @@ export default async function AboutPage() {
               </p>
             </div>
 
-            <div className={`grid gap-8 max-w-6xl mx-auto ${
-              teamMembers.length === 1
-                ? "grid-cols-1 max-w-sm"
-                : teamMembers.length === 2
-                ? "grid-cols-1 md:grid-cols-2 max-w-2xl"
-                : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-            }`}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {teamMembers.map((member, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-50 rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-[#C5A059]/40 transition-all flex flex-col items-center text-center group"
+                  className="flex flex-col items-center text-center group"
                 >
                   {/* Photo */}
-                  <div className="w-36 h-36 rounded-2xl mb-6 overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-lg">
+                  <div className="w-36 h-36 rounded-2xl mb-4 overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-lg">
                     {member.photoUrl ? (
                       <img
                         src={member.photoUrl}
@@ -185,21 +179,9 @@ export default async function AboutPage() {
                   </div>
 
                   {/* Name */}
-                  <h3 className="text-xl font-bold text-[#0B1325] mb-2 font-arabic">
+                  <h3 className="text-lg font-bold text-[#0B1325] font-arabic">
                     {member.name}
                   </h3>
-
-                  {/* Title Badge */}
-                  <span className="px-5 py-1.5 rounded-full text-sm font-semibold bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/30 mb-4">
-                    {member.title}
-                  </span>
-
-                  {/* Specialization */}
-                  {member.specialization && (
-                    <p className="text-sm text-gray-500 leading-relaxed font-arabic">
-                      {member.specialization}
-                    </p>
-                  )}
                 </div>
               ))}
             </div>
