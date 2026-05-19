@@ -16,7 +16,7 @@ export default function LoadingScreen() {
       <img
         src="/images/logo.png"
         alt="شركة رقية عبدالرحمن"
-        className="w-32 h-32 object-contain"
+        className="w-64 h-64 object-contain"
       />
       <p className="text-[#0B1325] font-bold text-xl font-arabic">شريكك القانوني</p>
       <p className="text-gray-400 text-sm font-arabic">جار التحميل ...</p>
