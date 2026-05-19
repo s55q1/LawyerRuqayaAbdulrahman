@@ -72,9 +72,9 @@ export default async function AboutPage() {
       {(settings.vision || settings.mission) && (
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
               {settings.vision && (
-                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[280px] flex flex-col justify-between border border-[#C5A059]/10 shadow-xl">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white flex flex-col justify-center border border-[#C5A059]/10 shadow-xl">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
                       <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
@@ -85,7 +85,7 @@ export default async function AboutPage() {
                 </div>
               )}
               {settings.mission && (
-                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[280px] flex flex-col justify-between border border-[#C5A059]/10 shadow-xl">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white flex flex-col justify-center border border-[#C5A059]/10 shadow-xl">
                   <div>
                     <div className="flex items-center gap-4 mb-6">
                       <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رسالتنا</h3>
