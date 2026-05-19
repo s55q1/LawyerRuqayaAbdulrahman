@@ -67,7 +67,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       title: "العدالة والنزاهة والكفاءة",
       subtitle: "قيم نؤمن بها ونحميها",
       desc: "نسعى لتقديم حلول قانونية وقائية متكاملة للأفراد والشركات لحمايتها ودعم نموها المستقر وفق الأنظمة واللوائح المعمول بها في المملكة.",
-      img: "/images/header-banner.png",
+      img: "",
       buttons: [
         { text: "تواصل معنا", link: "/contact", style: "filled" },
       ],
