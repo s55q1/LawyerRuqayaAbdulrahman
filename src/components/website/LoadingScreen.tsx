@@ -44,7 +44,6 @@ export default function LoadingScreen() {
           className="w-56 h-56 object-contain"
         />
       </div>
-      <p className="text-[#0B1325] font-bold text-xl font-arabic">شريكك القانوني</p>
     </div>
   );
 }
