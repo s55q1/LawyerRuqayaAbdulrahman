@@ -14,7 +14,7 @@ export default function LoadingScreen() {
   return (
     <div className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center gap-4 transition-opacity duration-500">
       <img
-        src="/images/logo.png"
+        src="/images/logo-dark.png"
         alt="شركة رقية عبدالرحمن"
         className="w-64 h-64 object-contain"
       />
