@@ -395,14 +395,6 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                   alt="مقر شركة رقية عبدالرحمن للمحاماة"
                   className="w-full h-full object-cover transition-transform duration-[8000ms] group-hover:scale-105"
                 />
-                {/* Elegant overlay gradient to match the premium theme */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325]/90 via-[#0B1325]/30 to-transparent" />
-                
-                {/* Branding text overlaid on the image */}
-                <div className="absolute bottom-6 right-6 left-6 text-right">
-                  <p className="text-[#C5A059] font-bold text-xl mb-1 font-arabic">مقر الشركة الرئيسي</p>
-                  <p className="text-white/80 text-sm font-medium font-arabic">بيئة عمل احترافية مبنية على أعلى معايير العدالة والدقة</p>
-                </div>
               </div>
             </div>
 
