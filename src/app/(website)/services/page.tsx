@@ -9,13 +9,13 @@ const naskh = Noto_Naskh_Arabic({ subsets: ["arabic"], weight: ["400", "700"] })
 
 const getServiceIconPath = (id: string) => {
   switch (id) {
-    case "svc-1": return "/images/svc-litigation.png";
-    case "svc-2": return "/images/svc-corporate.png";
-    case "svc-3": return "/images/svc-finance.png";
-    case "svc-4": return "/images/svc-investment.png";
-    case "svc-5": return "/images/svc-consultation.png";
-    case "svc-6": return "/images/svc-contracts.png";
-    default: return "/images/svc-litigation.png";
+    case "svc-1": return "/images/التقاضي والترافع.png";
+    case "svc-2": return "/images/قطاع الأعمال والشركات.png";
+    case "svc-3": return "/images/تحصيل الديون.png";
+    case "svc-4": return "/images/الاستثمار الأجنبي.png";
+    case "svc-5": return "/images/الملكية الفكرية.png";
+    case "svc-6": return "/images/العقود والاتفاقيات.png";
+    default: return "/images/التقاضي والترافع.png";
   }
 };
 
@@ -73,11 +73,11 @@ export default async function ServicesPage() {
                 >
                   <div className="p-8">
                     {/* Icon / Emoji */}
-                    <div className="w-16 h-16 rounded-2xl bg-[#0B1325]/5 group-hover:bg-[#C5A059]/10 flex items-center justify-center mb-6 transition-colors p-3 overflow-hidden">
+                    <div className="w-16 h-16 flex items-center justify-center mb-6 overflow-hidden">
                       <img
                         src={getServiceIconPath(svc.id)}
                         alt={svc.title}
-                        className="w-full h-full object-contain filter group-hover:brightness-110"
+                        className="w-full h-full object-contain scale-[2.2] group-hover:brightness-110"
                       />
                     </div>
 
