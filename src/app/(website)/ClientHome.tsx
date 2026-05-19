@@ -31,6 +31,18 @@ const arefFont = Aref_Ruqaa({ subsets: ["arabic"], weight: ["400", "700"] });
 
 import type { CmsData } from "@/lib/cms";
 
+const getServiceIcon = (id: string): string | null => {
+  switch (id) {
+    case "svc-1": return "/images/التقاضي والترافع.png";
+    case "svc-2": return "/images/قطاع الأعمال والشركات.png";
+    case "svc-3": return "/images/تحصيل الديون.png";
+    case "svc-4": return "/images/الاستثمار الأجنبي.png";
+    case "svc-5": return "/images/الملكية الفكرية.png";
+    case "svc-6": return "/images/العقود والاتفاقيات.png";
+    default: return null;
+  }
+};
+
 export default function HomePage({ cmsData }: { cmsData: CmsData }) {
   const [activeHero, setActiveHero] = useState(0);
 
@@ -44,7 +56,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       title: "شركة رقية عبدالرحمن",
       subtitle: cmsData.settings.slogan || "ندافع عن حقك، لأنك تستحقه",
       desc: "خبرة واسعة في تقديم الاستشارات القانونية والشرعية وصياغة العقود وتمثيل موكلينا أمام جميع المحاكم والجهات القضائية.",
-      img: "",
+      img: "/images/hero-desk.jpg",
       buttons: [
         { text: "استكشف المزيد", link: "/services", style: "filled" },
       ],
@@ -55,7 +67,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       title: "العدالة والنزاهة والكفاءة",
       subtitle: "قيم نؤمن بها ونحميها",
       desc: "نسعى لتقديم حلول قانونية وقائية متكاملة للأفراد والشركات لحمايتها ودعم نموها المستقر وفق الأنظمة واللوائح المعمول بها في المملكة.",
-      img: "",
+      img: "/images/hero-team.jpg",
       buttons: [
         { text: "تواصل معنا", link: "/contact", style: "filled" },
       ],
@@ -66,7 +78,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
       topText: "مستشاركم القانوني المعتمد",
       title: "صياغة العقود والاتفاقيات والتحكيم",
       desc: "نحمي التزاماتكم التجارية والشخصية بصياغة عقود قانونية محكمة وحل النزاعات وتسوية الخلافات القضائية بأعلى مستويات المهنية والسرية.",
-      img: "",
+      img: "/images/hero-scales.png",
       buttons: [
         { text: "احجز استشارتك الآن", link: "/contact", style: "filled" },
       ],
@@ -274,8 +286,8 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                 key={idx} 
                 className="flex items-center gap-4 px-8 py-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg hover:border-[#C5A059] transition-all cursor-pointer group min-w-max"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#0B1325]/5 flex items-center justify-center text-[#C5A059] group-hover:scale-110 group-hover:bg-[#C5A059] group-hover:text-white transition-all">
-                  {srv.icon && typeof srv.icon === 'string' ? <img src={srv.icon} className="w-6 h-6" /> : <Briefcase className="w-6 h-6" />}
+                <div className="w-12 h-12 rounded-xl bg-[#0B1325]/5 flex items-center justify-center text-[#C5A059] group-hover:scale-110 group-hover:bg-[#C5A059]/10 transition-all">
+                  {(() => { const icon = getServiceIcon((srv as { id?: string }).id || ""); return icon ? <img src={icon} className="w-8 h-8 object-contain" /> : <Briefcase className="w-6 h-6" />; })()}
                 </div>
                 <span className="font-bold text-[#0B1325] text-lg font-arabic">{srv.title}</span>
               </Link>
@@ -375,19 +387,21 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               </div>
             </div>
 
-            {/* Left Side: Decorative Card */}
+            {/* Left Side: Real Office Photo Card */}
             <div className="w-full lg:w-1/2">
-              <div className="relative rounded-3xl h-[450px] bg-[#0B1325] flex flex-col items-center justify-center gap-6 shadow-xl overflow-hidden">
-                {/* Gold ring */}
-                <div className="absolute w-80 h-80 rounded-full border border-[#C5A059]/10" />
-                <div className="absolute w-60 h-60 rounded-full border border-[#C5A059]/15" />
-                <div className="absolute w-40 h-40 rounded-full border border-[#C5A059]/20" />
-                {/* Icon */}
-                <Scale size={72} className="text-[#C5A059] relative z-10" strokeWidth={1} />
-                {/* Text */}
-                <div className="text-center relative z-10 px-8">
-                  <p className="text-[#C5A059] font-bold text-xl mb-2">شركة رقية عبدالرحمن</p>
-                  <p className="text-white/60 text-sm leading-relaxed">ندافع عن حقك، لأنك تستحقه</p>
+              <div className="relative rounded-3xl h-[450px] shadow-2xl overflow-hidden group">
+                <img
+                  src="/images/team-photo.jpg"
+                  alt="مقر شركة رقية عبدالرحمن للمحاماة"
+                  className="w-full h-full object-cover transition-transform duration-[8000ms] group-hover:scale-105"
+                />
+                {/* Elegant overlay gradient to match the premium theme */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325]/90 via-[#0B1325]/30 to-transparent" />
+                
+                {/* Branding text overlaid on the image */}
+                <div className="absolute bottom-6 right-6 left-6 text-right">
+                  <p className="text-[#C5A059] font-bold text-xl mb-1 font-arabic">مقر الشركة الرئيسي</p>
+                  <p className="text-white/80 text-sm font-medium font-arabic">بيئة عمل احترافية مبنية على أعلى معايير العدالة والدقة</p>
                 </div>
               </div>
             </div>
@@ -519,6 +533,50 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                 </div>
               ));
             })()}
+          </div>
+        </div>
+
+        {/* Google Reviews Button */}
+        <div className="text-center mt-12 relative z-10">
+          <a
+            href={cmsData.settings.googleMapReviewsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("شركة رقية عبدالرحمن للمحاماة والاستشارات القانونية الدمام")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 border border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059] hover:text-white rounded-xl font-bold transition-all duration-300 shadow-lg"
+          >
+            <Star className="w-4 h-4 fill-current" />
+            <span>شاهد تقييماتنا أو اكتب تقييماً على قوقل ماب</span>
+          </a>
+        </div>
+      </div>
+
+      {/* ══════════ GEOGRAPHIC LOCATION SECTION (MAP) ══════════ */}
+      <div className="bg-[#0B1325] border-t border-white/5 py-16">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-10">
+            <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block font-arabic">
+              موقعنا الجغرافي
+            </span>
+            <h2 className="text-3xl font-bold text-white mb-4 font-arabic">
+              تشرفنا زيارتكم لمقر الشركة
+            </h2>
+            <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full mb-3" />
+            <p className="text-slate-400 text-sm md:text-base font-medium font-arabic">
+              {cmsData.settings.address || "الدمام، المملكة العربية السعودية"}
+            </p>
+          </div>
+          
+          <div className="rounded-3xl overflow-hidden shadow-2xl border border-white/10 h-[400px] relative">
+            <iframe
+              src={`https://maps.google.com/maps?q=${cmsData.settings.mapLat || "26.4333999"},${cmsData.settings.mapLng || "50.117746"}&z=16&output=embed`}
+              width="100%"
+              height="100%"
+              style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2) sepia(0.1)" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="موقع شركة رقية عبدالرحمن للمحاماة والاستشارات القانونية"
+            />
           </div>
         </div>
       </div>

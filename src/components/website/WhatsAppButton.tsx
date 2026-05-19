@@ -1,11 +1,31 @@
 "use client";
+import React from "react";
 
-export default function FloatingContactButtons() {
+interface FloatingContactButtonsProps {
+  settings?: {
+    phone?: string;
+    whatsapp?: string;
+    email?: string;
+  };
+}
+
+export default function FloatingContactButtons({ settings }: FloatingContactButtonsProps) {
+  const phone = settings?.phone || "0538225224";
+  const whatsapp = settings?.whatsapp || "0538225224";
+  const email = settings?.email || "ruqayah@ra-justicealhaq.com";
+
+  // Clean numbers for WhatsApp & calling
+  const cleanPhone = phone.replace(/\s/g, "");
+  
+  // Format WhatsApp number to match international format +966 without leading zeros or spaces
+  const cleanWhatsapp = whatsapp.replace(/[^0-9]/g, "").replace(/^966/, "").replace(/^0/, "");
+  const whatsappUrl = `https://wa.me/966${cleanWhatsapp || "538225224"}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن خدماتكم القانونية")}`;
+
   return (
     <div className="fixed left-4 bottom-24 z-50 flex flex-col gap-3">
       {/* اتصال */}
       <a
-        href="tel:+966504905047"
+        href={`tel:${cleanPhone}`}
         aria-label="اتصال"
         className="w-12 h-12 bg-white hover:bg-[#0B1325] text-[#0B1325] hover:text-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
       >
@@ -16,7 +36,7 @@ export default function FloatingContactButtons() {
 
       {/* واتساب */}
       <a
-        href="https://wa.me/966504905047?text=السلام عليكم، أود الاستفسار عن خدماتكم القانونية"
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="واتساب"
@@ -29,7 +49,7 @@ export default function FloatingContactButtons() {
 
       {/* إيميل */}
       <a
-        href="mailto:ruqayah@ra-justicealhaq.com"
+        href={`mailto:${email}`}
         aria-label="البريد الإلكتروني"
         className="w-12 h-12 bg-white hover:bg-[#C5A059] text-[#C5A059] hover:text-white rounded-2xl shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
       >

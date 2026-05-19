@@ -52,8 +52,8 @@ export default function DashboardSidebar({ user }: { user: SessionUser }) {
             <img
               src="/images/logo-white.png"
               alt="شركة رقية عبدالرحمن للمحاماة"
-              className="h-14 object-contain"
-              style={{ maxWidth: "160px" }}
+              className="h-9 object-contain"
+              style={{ maxWidth: "130px" }}
             />
           )}
 

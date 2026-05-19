@@ -18,6 +18,7 @@ export type CmsSettings = {
   // Contact page
   workHours: string;      // JSON array of {day, hours}
   mapLat: string; mapLng: string;
+  googleMapReviewsUrl?: string;
   // Footer
   footerAboutText: string;
   companyReg: string;
@@ -60,8 +61,8 @@ function read(): CmsData {
       settings: {
         siteName: "شركة رقية عبدالرحمن", slogan: "", logoUrl: "/images/logo.png",
         primaryColor: "#C5A059", secondaryColor: "#0B1325",
-        phone: "", whatsapp: "", email: "", address: "", instagramUrl: "", twitterUrl: "", linkedinUrl: "",
-        aboutText: "", aboutImage: "",
+        phone: "", whatsapp: "", email: "", address: "", instagramUrl: "", twitterUrl: "", linkedinUrl: "", googleMapReviewsUrl: "",
+        aboutText: "", aboutImage: "", vision: "", mission: "", journeyText: "", qualifications: "", experiences: "", aboutValues: "", workHours: "", mapLat: "", mapLng: "", footerAboutText: "", companyReg: "", teamMembers: ""
       },
       services: [], sections: [], announcements: [], blog: [],
     };

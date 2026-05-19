@@ -10,7 +10,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       <WebsiteHeader phone={settings.phone} />
       <main className="min-h-screen" style={{ background: "#0F172A" }}>{children}</main>
       <WebsiteFooter settings={settings} />
-      <FloatingContactButtons />
+      <FloatingContactButtons settings={settings} />
     </>
   );
 }

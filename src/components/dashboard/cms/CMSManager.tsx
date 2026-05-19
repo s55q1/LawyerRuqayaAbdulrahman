@@ -12,7 +12,7 @@ type Setting = {
   siteName: string; logoUrl?: string; slogan?: string;
   primaryColor: string; secondaryColor: string;
   phone?: string; whatsapp?: string; email?: string; address?: string;
-  instagramUrl?: string; twitterUrl?: string; linkedinUrl?: string;
+  instagramUrl?: string; twitterUrl?: string; linkedinUrl?: string; googleMapReviewsUrl?: string;
   aboutText?: string; aboutImage?: string;
   vision?: string; mission?: string; journeyText?: string;
   qualifications?: string; experiences?: string; aboutValues?: string;
@@ -197,6 +197,9 @@ function SettingsTab() {
           </Field>
           <Field label="رابط لينكدان">
             <div className="relative"><input value={s.linkedinUrl ?? ""} onChange={f("linkedinUrl")} className="input pr-10" placeholder="https://linkedin.com/..." /><Linkedin className="w-4 h-4 absolute right-3 top-3 text-slate-400" /></div>
+          </Field>
+          <Field label="رابط تقييمات قوقل ماب">
+            <div className="relative"><input value={s.googleMapReviewsUrl ?? ""} onChange={f("googleMapReviewsUrl")} className="input pr-10" placeholder="https://maps.app.goo.gl/..." /><MapPin className="w-4 h-4 absolute right-3 top-3 text-[#C5A059]" /></div>
           </Field>
           <Field label="رابط تويتر / X">
             <div className="relative"><input value={s.twitterUrl ?? ""} onChange={f("twitterUrl")} className="input pr-10" placeholder="https://twitter.com/..." /><Twitter className="w-4 h-4 absolute right-3 top-3 text-slate-400" /></div>

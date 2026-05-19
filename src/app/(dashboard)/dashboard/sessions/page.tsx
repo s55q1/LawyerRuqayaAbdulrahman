@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { CASE_TYPE_LABELS } from "@/lib/utils";
-import { CalendarDays, Phone, ExternalLink } from "lucide-react";
+import { CalendarDays, Phone, ExternalLink, Plus } from "lucide-react";
 import Link from "next/link";
 
 const DAY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -82,28 +82,41 @@ export default async function SessionsPage({
           </p>
         </div>
 
-        {/* Toggle past/upcoming */}
-        <div className="flex gap-2">
-          <Link
-            href="/dashboard/sessions"
-            className="px-4 py-2 rounded-xl text-sm font-bold transition-all"
-            style={!showPast
-              ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" }
-              : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }
-            }
-          >
-            القادمة
-          </Link>
-          <Link
-            href="/dashboard/sessions?view=past"
-            className="px-4 py-2 rounded-xl text-sm font-bold transition-all"
-            style={showPast
-              ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" }
-              : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }
-            }
-          >
-            السابقة
-          </Link>
+        {/* Action Buttons & Toggle past/upcoming */}
+        <div className="flex flex-wrap items-center gap-3">
+          {["MANAGER", "LEGAL_SECRETARY", "LAWYER"].includes(session.role) && (
+            <Link
+              href="/dashboard/sessions/new"
+              className="px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-1.5 transform hover:scale-105"
+              style={{ background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325", boxShadow: "0 4px 16px rgba(197, 160, 89, 0.2)" }}
+            >
+              <Plus className="w-4 h-4" />
+              إضافة جلسة جديدة
+            </Link>
+          )}
+
+          <div className="flex gap-1.5 p-1 bg-white/5 rounded-xl border border-white/10">
+            <Link
+              href="/dashboard/sessions"
+              className="px-4 py-1.5 rounded-lg text-sm font-bold transition-all"
+              style={!showPast
+                ? { background: "rgba(255,255,255,0.1)", color: "#F8FAFC" }
+                : { color: "rgba(255,255,255,0.4)" }
+              }
+            >
+              القادمة
+            </Link>
+            <Link
+              href="/dashboard/sessions?view=past"
+              className="px-4 py-1.5 rounded-lg text-sm font-bold transition-all"
+              style={showPast
+                ? { background: "rgba(255,255,255,0.1)", color: "#F8FAFC" }
+                : { color: "rgba(255,255,255,0.4)" }
+              }
+            >
+              السابقة
+            </Link>
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,8 @@
-import { Scale, Award, BookOpen, Users } from "lucide-react";
+import { Scale, Award, BookOpen, Users, Shield, Heart, Lock, CheckCircle, Eye, Rocket } from "lucide-react";
 import Link from "next/link";
 import { getCmsData } from "@/lib/cms";
+
+export const dynamic = "force-dynamic";
 
 type TeamMember = { name: string; title: string; specialization: string; photoUrl: string };
 
@@ -16,9 +18,14 @@ export default async function AboutPage() {
   })();
 
   const valueIcons = [
-    <Scale key="s" className="w-10 h-10" />,
+    <Shield key="sh" className="w-10 h-10" />,
+    <Eye key="e" className="w-10 h-10" />,
     <Award key="a" className="w-10 h-10" />,
-    <BookOpen key="b" className="w-10 h-10" />,
+    <Lock key="l" className="w-10 h-10" />,
+    <CheckCircle key="c" className="w-10 h-10" />,
+    <Scale key="s" className="w-10 h-10" />,
+    <Rocket key="r" className="w-10 h-10" />,
+    <Users key="u" className="w-10 h-10" />,
   ];
 
   return (
@@ -63,28 +70,34 @@ export default async function AboutPage() {
 
       {/* Vision & Mission */}
       {(settings.vision || settings.mission) && (
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-6">
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-6 max-w-6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {settings.vision && (
-                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[200px] flex flex-col justify-between border border-[#C5A059]/10">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[280px] flex flex-col justify-between border border-[#C5A059]/10 shadow-xl">
                   <div>
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-4 mb-6">
                       <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
                       <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رؤيتنا</h3>
                     </div>
-                    <p className="text-slate-300 text-sm leading-relaxed">{settings.vision}</p>
+                    <p className="text-slate-200 text-base leading-relaxed mb-6 font-arabic">{settings.vision}</p>
+                    <div className="border-t border-white/10 pt-4 mt-auto">
+                      <span className="text-[#C5A059] font-semibold text-xs tracking-wider uppercase block mb-1">Our Vision</span>
+                      <p className="text-slate-400 text-xs md:text-sm leading-relaxed" style={{ fontStyle: "italic" }}>
+                        Leadership and excellence in providing various legal services and consultations professionally and staying at the forefront of trusted law firms locally, regionally, and internationally.
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}
               {settings.mission && (
-                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[200px] flex flex-col justify-between border border-[#C5A059]/10">
+                <div className="bg-[#0B1325] rounded-3xl p-8 text-white min-h-[280px] flex flex-col justify-between border border-[#C5A059]/10 shadow-xl">
                   <div>
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-4 mb-6">
                       <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رسالتنا</h3>
                       <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
                     </div>
-                    <p className="text-slate-300 text-sm leading-relaxed">{settings.mission}</p>
+                    <p className="text-slate-200 text-sm md:text-base leading-relaxed font-arabic">{settings.mission}</p>
                   </div>
                 </div>
               )}
@@ -93,20 +106,54 @@ export default async function AboutPage() {
         </section>
       )}
 
+      {/* Goals Section (أهدافنا) */}
+      <section className="py-20 bg-[#F8FAFC]" style={{ borderTop: "1px solid rgba(0,0,0,0.03)", borderBottom: "1px solid rgba(0,0,0,0.03)" }}>
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="text-center mb-14">
+            <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block font-arabic">
+              رؤية مستقبلية
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0B1325] mb-4 font-arabic">
+              أهدافنا
+            </h2>
+            <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {[
+              "مواكبة تطور الخدمات القانونية بما يتوافق مع رؤية السعودية 2030 م",
+              "المحافظة على خصوصية العملاء وسرية بياناتهم",
+              "توفير أفضل الحلول القانونية لمجموعة واسعة من المستفيدين داخل المملكة العربية السعودية وخارجها",
+              "الالتزام الكامل بأخلاقيات مهنة المحاماة السامية",
+              "تطوير شراكات استراتيجية مع عملائنا طويلة الأجل فهم شركاء النجاح"
+            ].map((goal, idx) => (
+              <div key={idx} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-all duration-300">
+                <div className="w-8 h-8 rounded-full bg-[#C5A059]/10 text-[#C5A059] flex items-center justify-center flex-shrink-0 font-bold font-mono">
+                  {idx + 1}
+                </div>
+                <p className="text-slate-700 text-sm md:text-base font-semibold leading-relaxed font-arabic text-right">
+                  {goal}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Team Section */}
       {teamMembers.length > 0 && (
         <section className="py-20 bg-white">
           <div className="container mx-auto px-6">
-            <div className="text-center mb-14">
-              <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block">
+            <div className="text-center mb-14 max-w-3xl mx-auto">
+              <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block font-arabic">
                 فريق العمل
               </span>
               <h2 className="text-3xl font-bold text-[#0B1325] mb-4 font-arabic">
-                المحامون والمتخصصون
+                فريقنا
               </h2>
-              <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full" />
-              <p className="text-gray-500 max-w-lg mx-auto mt-4 text-sm">
-                نخبة من الكفاءات القانونية المتميزة الملتزمة بتقديم أعلى معايير العدالة والدقة القانونية.
+              <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full mb-6" />
+              <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-medium font-arabic">
+                نفتخر بطاقمنا المميز المكون من نخبة منتقاة من أفضل المحامين الممارسين والمستشارين والخبراء القانونيين في كافة المجالات القانونية، ذوي المؤهلات الأكاديمية العالية والمهارات المتنوعة والخبرات العملية التراكمية التي يضعونها في خدمة عملائنا والمشهود لهم بالمصداقية والأمانة والإخلاص والتفاني في العمل.
               </p>
             </div>
 
@@ -149,7 +196,7 @@ export default async function AboutPage() {
 
                   {/* Specialization */}
                   {member.specialization && (
-                    <p className="text-sm text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-500 leading-relaxed font-arabic">
                       {member.specialization}
                     </p>
                   )}
@@ -162,15 +209,18 @@ export default async function AboutPage() {
 
       {/* Values */}
       {aboutValues.length > 0 && (
-        <section className="py-20 bg-primary-700">
-          <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold text-white text-center mb-14">قيمنا المهنية</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section className="py-20 bg-[#0B1325]" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+          <div className="container mx-auto px-6 max-w-6xl">
+            <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block text-center font-arabic">
+              مبادئنا المهنية
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-14 font-arabic">قيمنا</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {aboutValues.map((v, i) => (
-                <div key={i} className="text-center p-6">
-                  <div className="text-gold mx-auto mb-4 flex justify-center">{valueIcons[i % valueIcons.length]}</div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{v.title}</h3>
-                  <p className="text-blue-200">{v.desc}</p>
+                <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300">
+                  <div className="text-[#C5A059] mx-auto mb-4 flex justify-center">{valueIcons[i % valueIcons.length]}</div>
+                  <h3 className="text-lg font-bold text-white mb-3 font-arabic">{v.title}</h3>
+                  <p className="text-slate-300 text-xs md:text-sm leading-relaxed">{v.desc}</p>
                 </div>
               ))}
             </div>
@@ -181,11 +231,13 @@ export default async function AboutPage() {
       {/* CTA */}
       <section className="py-16 bg-white text-center">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-primary-700 mb-4">هل تريد التواصل معنا؟</h2>
-          <p className="text-gray-600 mb-8 text-lg">تواصل معنا اليوم للحصول على استشارتك القانونية</p>
-          <Link href="/contact" className="btn-primary text-lg">
-            <Users className="w-5 h-5 inline-block ml-2" />
-            تواصل معنا
+          <h2 className="text-3xl font-bold text-[#0B1325] mb-4 font-arabic">هل تريد التواصل معنا؟</h2>
+          <p className="text-gray-600 mb-8 text-lg font-arabic">تواصل معنا اليوم للحصول على استشارتك القانونية</p>
+          <Link href="/contact">
+            <button className="btn-gold px-8 py-3.5 inline-flex items-center gap-2 transform hover:scale-105 transition-all duration-300">
+              <Users className="w-5 h-5" />
+              <span className="font-bold text-sm">تواصل معنا الآن</span>
+            </button>
           </Link>
         </div>
       </section>

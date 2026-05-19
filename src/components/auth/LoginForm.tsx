@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Eye, EyeOff, LogIn, AlertCircle } from "lucide-react";
 
 export default function LoginForm() {
@@ -112,7 +113,16 @@ export default function LoginForm() {
 
       {/* Password */}
       <div>
-        <label className="label">كلمة المرور</label>
+        <div className="flex justify-between items-center mb-1">
+          <label className="label mb-0">كلمة المرور</label>
+          <Link
+            href="/auth/forgot-password"
+            className="text-xs transition-colors hover:underline"
+            style={{ color: "#D4A373", fontFamily: "Cairo, sans-serif" }}
+          >
+            نسيت كلمة المرور؟
+          </Link>
+        </div>
         <div className="relative">
           <input
             type={showPass ? "text" : "password"}
