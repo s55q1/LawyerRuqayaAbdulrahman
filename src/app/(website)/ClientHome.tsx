@@ -138,6 +138,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                   <span className="text-white text-lg font-bold mb-4">
                     {slide.topText}
                   </span>
+                  <img src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-4 object-contain" />
                   <div className="flex items-center gap-4 mb-6 w-full max-w-lg mx-auto">
                     <div className="flex-1 h-[2px] bg-white" />
                     <Scale size={32} className="text-[#C5A059] flex-shrink-0" />
