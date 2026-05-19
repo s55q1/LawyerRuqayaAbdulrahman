@@ -40,22 +40,21 @@ export default function DashboardSidebar({ user }: { user: SessionUser }) {
       style={{ background: "#0B1325", borderLeft: "1px solid rgba(255,255,255,0.05)" }}
     >
       {/* Logo */}
-      <div className="px-4 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{
-              background: "linear-gradient(135deg, #C5A059 0%, #D4A373 50%, #E6B980 100%)",
-              boxShadow: "0 4px 16px rgba(197, 160, 89, 0.3)",
-            }}
-          >
-            <Scale className="w-4 h-4" style={{ color: "#0B1325" }} />
-          </div>
-          {!collapsed && (
-            <div className="overflow-hidden">
-              <div className="font-bold text-sm leading-tight" style={{ color: "#FFFFFF" }}>شركة رقية</div>
-              <div className="text-xs font-semibold" style={{ color: "#C5A059" }}>عبدالرحمن للمحاماة</div>
-            </div>
+      <div className="px-4 py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="flex items-center justify-center">
+          {collapsed ? (
+            <img
+              src="/images/logo-white.png"
+              alt="شركة رقية"
+              className="h-8 w-8 object-contain"
+            />
+          ) : (
+            <img
+              src="/images/logo-white.png"
+              alt="شركة رقية عبدالرحمن للمحاماة"
+              className="h-14 object-contain"
+              style={{ maxWidth: "160px" }}
+            />
           )}
 
         </div>

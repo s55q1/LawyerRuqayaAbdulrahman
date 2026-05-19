@@ -42,7 +42,7 @@ async function main() {
     // ── السكرتير القانوني ────────────────────────────────────────────
     {
       email:    "secretary@lawoffice.sa",
-      name:     "السكرتير القانوني",
+      name:     "نورة",
       role:     "LEGAL_SECRETARY",
       phone:    "",
       password: legalSecretaryPassword,
