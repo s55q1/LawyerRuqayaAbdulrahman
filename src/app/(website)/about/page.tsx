@@ -164,8 +164,7 @@ export default async function AboutPage() {
                         src={member.photoUrl}
                         alt={member.name}
                         className={`w-full h-full object-cover object-top ${
-                          member.name.includes("معاذ") ? "scale-75" :
-                          member.name.includes("عبدالله") ? "scale-125" : ""
+                          member.name.includes("عبدالله") ? "scale-110" : ""
                         }`}
                       />
                     ) : (
