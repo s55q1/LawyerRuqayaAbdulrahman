@@ -58,6 +58,8 @@ model Client {
   email         String?
   address       String?
   notes         String?
+  caseType      String?
+  attachmentUrl String?  @db.Text
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

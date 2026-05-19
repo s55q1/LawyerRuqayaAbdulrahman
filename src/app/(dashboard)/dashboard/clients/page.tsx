@@ -2,7 +2,13 @@ import { getSession, hasRole } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { formatDate } from "@/lib/utils";
-import { Users, Plus, Phone, Scale, Mail, Calendar } from "lucide-react";
+import { Users, Plus, Phone, Scale, Mail, Calendar, Briefcase } from "lucide-react";
+
+const CASE_TYPE_LABELS: Record<string, string> = {
+  LABOR: "عمالية", PERSONAL_STATUS: "أحوال شخصية",
+  COMMERCIAL: "تجارية", EXECUTION: "تنفيذ",
+  CONSULTATION: "استشارات", OTHER: "أخرى",
+};
 import Link from "next/link";
 
 export default async function ClientsPage() {
@@ -93,6 +99,14 @@ export default async function ClientsPage() {
                     <div className="flex items-center gap-2">
                       <Scale className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#2A3A52" }} />
                       <span dir="ltr" className="font-mono text-xs" style={{ color: "#334865" }}>{client.nationalId}</span>
+                    </div>
+                  )}
+                  {client.caseType && (
+                    <div className="flex items-center gap-2">
+                      <Briefcase className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#C5A059" }} />
+                      <span className="text-xs font-semibold" style={{ color: "#C5A059" }}>
+                        {CASE_TYPE_LABELS[client.caseType] || client.caseType}
+                      </span>
                     </div>
                   )}
                 </div>

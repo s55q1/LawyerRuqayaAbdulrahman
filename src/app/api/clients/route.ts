@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
         nationalId: data.nationalId || null,
         address: data.address || null,
         notes: data.notes || null,
+        caseType: data.caseType || null,
+        attachmentUrl: data.attachmentUrl || null,
       },
     });
     return NextResponse.json(client, { status: 201 });

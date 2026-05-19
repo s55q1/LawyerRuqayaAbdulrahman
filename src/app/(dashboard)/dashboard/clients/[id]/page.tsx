@@ -2,7 +2,13 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { formatDate, CASE_STATUS_LABELS } from "@/lib/utils";
-import { Users, Phone, Mail, MapPin, Scale, FileText, Download, CalendarDays, CreditCard } from "lucide-react";
+import { Users, Phone, Mail, MapPin, Scale, FileText, Download, CalendarDays, CreditCard, Paperclip } from "lucide-react";
+
+const CASE_TYPE_LABELS: Record<string, string> = {
+  LABOR: "قضايا عمالية", PERSONAL_STATUS: "أحوال شخصية",
+  COMMERCIAL: "قضايا تجارية", EXECUTION: "تنفيذ",
+  CONSULTATION: "استشارات", OTHER: "أخرى",
+};
 import Link from "next/link";
 
 export default async function ClientDetailPage({
@@ -99,10 +105,38 @@ export default async function ClientDetailPage({
               )}
             </div>
 
+            {client.caseType && (
+              <div className="mt-3">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
+                  style={{ background: "rgba(197,160,89,0.12)", color: "#C5A059", border: "1px solid rgba(197,160,89,0.25)" }}>
+                  <Scale className="w-3 h-3" />
+                  {CASE_TYPE_LABELS[client.caseType] || client.caseType}
+                </span>
+              </div>
+            )}
+
             {client.notes && (
               <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                 <p className="text-xs mb-1" style={{ color: "#4A6080" }}>ملاحظات</p>
                 <p className="text-sm" style={{ color: "#94A3B8" }}>{client.notes}</p>
+              </div>
+            )}
+
+            {client.attachmentUrl && (
+              <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                <p className="text-xs mb-2" style={{ color: "#4A6080" }}>المرفق</p>
+                {client.attachmentUrl.startsWith("data:image") ? (
+                  <img src={client.attachmentUrl} alt="مرفق العميل"
+                    className="w-full rounded-xl object-cover max-h-48"
+                    style={{ border: "1px solid rgba(255,255,255,0.08)" }} />
+                ) : (
+                  <a href={client.attachmentUrl} download
+                    className="flex items-center gap-2 text-xs font-bold px-3 py-2 rounded-xl transition-colors hover:bg-white/10"
+                    style={{ color: "#C5A059", border: "1px solid rgba(197,160,89,0.2)" }}>
+                    <Paperclip className="w-3.5 h-3.5" />
+                    تحميل الملف المرفق
+                  </a>
+                )}
               </div>
             )}
 
