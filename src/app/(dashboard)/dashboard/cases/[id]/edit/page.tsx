@@ -10,14 +10,14 @@ export default async function EditCasePage({
 }) {
   const { id } = await params;
   const session = await getSession();
-  if (!hasRole(session, "MANAGER", "SECRETARY")) {
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) {
     redirect(`/dashboard/cases/${id}`);
   }
 
   const [caseData, clients, lawyers] = await Promise.all([
     prisma.case.findUnique({ where: { id } }),
     prisma.client.findMany({ orderBy: { name: "asc" } }),
-    prisma.user.findMany({ where: { role: { in: ["LAWYER", "ADMIN"] }, isActive: true } }),
+    prisma.user.findMany({ where: { role: { in: ["LAWYER"] }, isActive: true } }),
   ]);
 
   if (!caseData) notFound();

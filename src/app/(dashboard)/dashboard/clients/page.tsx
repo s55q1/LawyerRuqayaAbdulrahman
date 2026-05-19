@@ -14,7 +14,7 @@ export default async function ClientsPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  const canCreate = hasRole(session, "MANAGER", "SECRETARY");
+  const canCreate = hasRole(session, "MANAGER", "LEGAL_SECRETARY");
 
   return (
     <div className="space-y-6 animate-fade-in">

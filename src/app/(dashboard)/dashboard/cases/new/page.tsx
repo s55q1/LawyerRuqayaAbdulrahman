@@ -5,13 +5,13 @@ import NewCaseForm from "@/components/dashboard/cases/NewCaseForm";
 
 export default async function NewCasePage() {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER", "SECRETARY")) {
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) {
     redirect("/dashboard/cases");
   }
 
   const [clients, lawyers] = await Promise.all([
     prisma.client.findMany({ orderBy: { name: "asc" } }),
-    prisma.user.findMany({ where: { role: { in: ["LAWYER", "ADMIN"] }, isActive: true }, orderBy: { name: "asc" } }),
+    prisma.user.findMany({ where: { role: { in: ["LAWYER"] }, isActive: true }, orderBy: { name: "asc" } }),
   ]);
 
   return (

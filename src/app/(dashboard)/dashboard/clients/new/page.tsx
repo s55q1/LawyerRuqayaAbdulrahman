@@ -4,7 +4,7 @@ import NewClientForm from "@/components/dashboard/clients/NewClientForm";
 
 export default async function NewClientPage() {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER", "SECRETARY")) {
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) {
     redirect("/dashboard/clients");
   }
 

@@ -45,7 +45,7 @@ export default async function CasesPage({
     orderBy: { createdAt: "desc" },
   });
 
-  const canCreate = session.role === "ADMIN" || session.role === "SECRETARY";
+  const canCreate = session.role === "MANAGER" || session.role === "LEGAL_SECRETARY";
 
   return (
     <div className="space-y-8 animate-fade-in" dir="rtl" style={{ fontFamily: "'Cairo', sans-serif" }}>
