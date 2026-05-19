@@ -163,7 +163,10 @@ export default async function AboutPage() {
                       <img
                         src={member.photoUrl}
                         alt={member.name}
-                        className="w-full h-full object-cover object-top"
+                        className={`w-full h-full object-cover object-top ${
+                          member.name.includes("معاذ") ? "scale-75" :
+                          member.name.includes("عبدالله") ? "scale-125" : ""
+                        }`}
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-[#0B1325] to-[#1A253C] flex items-center justify-center text-[#C5A059] font-bold text-5xl">
