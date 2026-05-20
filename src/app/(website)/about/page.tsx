@@ -1,4 +1,5 @@
 import { Scale, Award, Users, Shield, Lock, CheckCircle, Eye, Rocket } from "lucide-react";
+import PageHero from "@/components/website/PageHero";
 import Link from "next/link";
 import { getCmsData } from "@/lib/cms";
 
@@ -30,19 +31,12 @@ export default async function AboutPage() {
 
   return (
     <>
-      {/* ── HERO BANNER ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: "420px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
-        {/* Decorative circles */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
-        {/* Gold grid lines */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-
-        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 py-32">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 font-arabic leading-tight">من نحن</h1>
-          <img src="/images/header-banner.png" alt="" className="w-72 md:w-96 object-contain opacity-90" />
-        </div>
-      </section>
+      <PageHero
+        title="من نحن"
+        breadcrumb={[{ label: "الرئيسية" }, { label: "من نحن" }]}
+      >
+        <img src="/images/header-banner.png" alt="" className="w-64 md:w-80 object-contain opacity-90 mt-2" />
+      </PageHero>
 
       {/* ── ABOUT + IMAGE ── */}
       <section className="relative bg-white rounded-t-[60px] -mt-10 z-10 py-24 overflow-hidden">

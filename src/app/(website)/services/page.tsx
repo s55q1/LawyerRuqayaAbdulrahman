@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, MessageSquare } from "lucide-react";
+import PageHero from "@/components/website/PageHero";
 import { Noto_Naskh_Arabic } from "next/font/google";
 import { getCmsData } from "@/lib/cms";
 
@@ -25,35 +26,20 @@ export default async function ServicesPage() {
 
   return (
     <>
-      {/* HERO */}
-      <div className="relative text-white overflow-hidden" style={{ minHeight: "340px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        {/* Glow circles */}
-        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
-        <div className="absolute -bottom-10 -left-10 w-60 h-60 rounded-full opacity-8" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
-        {/* Gold top line */}
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
-
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center py-24">
-          <div className="text-sm text-slate-400 mb-4 font-arabic">
-            <span>الرئيسية</span><span className="mx-2">/</span>
-            <span className="text-[#C5A059]">الخدمات والإستشارات القانونية</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 font-arabic">الخدمات والإستشارات القانونية</h1>
-          <p className="text-slate-300 mb-8 max-w-xl font-arabic">
-            نقدم خدمات نوعية ومتنوعة لعملائنا مستندة إلى قدراتنا المتخصصة والمهنية العالية.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link href="/contact" className="flex items-center gap-2 border border-[#C5A059]/50 hover:bg-[#C5A059] hover:border-[#C5A059] transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
-              <Phone size={15} /><span>اتصال</span>
-            </Link>
-            <Link href="/contact" className="flex items-center gap-2 border border-white/20 hover:bg-white/10 transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
-              <MessageSquare size={15} /><span>واتساب</span>
-            </Link>
-          </div>
+      <PageHero
+        title="الخدمات والإستشارات القانونية"
+        subtitle="نقدم خدمات نوعية ومتنوعة لعملائنا مستندة إلى قدراتنا المتخصصة والمهنية العالية."
+        breadcrumb={[{ label: "الرئيسية" }, { label: "الخدمات والإستشارات القانونية" }]}
+      >
+        <div className="flex flex-wrap gap-3 justify-center">
+          <Link href="/contact" className="flex items-center gap-2 border border-[#C5A059]/50 hover:bg-[#C5A059] hover:border-[#C5A059] transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
+            <Phone size={15} /><span>اتصال</span>
+          </Link>
+          <Link href="/contact" className="flex items-center gap-2 border border-white/20 hover:bg-white/10 transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
+            <MessageSquare size={15} /><span>واتساب</span>
+          </Link>
         </div>
-      </div>
+      </PageHero>
 
       {/* SERVICES GRID */}
       <div className="bg-[#f5f5f3] py-20">

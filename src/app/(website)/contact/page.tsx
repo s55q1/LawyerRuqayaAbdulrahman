@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import PageHero from "@/components/website/PageHero";
 import ContactForm from "@/components/website/ContactForm";
 import { getCmsData } from "@/lib/cms";
 
@@ -14,18 +15,11 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="relative text-white overflow-hidden" style={{ minHeight: "300px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center py-20">
-          <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] mb-3 font-arabic">نسعد بخدمتك</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 font-arabic">تواصل معنا</h1>
-          <p className="text-slate-300 text-lg max-w-xl mx-auto font-arabic">
-            نحن هنا لمساعدتك، لا تتردد في التواصل معنا في أي وقت
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="تواصل معنا"
+        subtitle="نحن هنا لمساعدتك، لا تتردد في التواصل معنا في أي وقت"
+        breadcrumb={[{ label: "الرئيسية" }, { label: "تواصل معنا" }]}
+      />
 
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
