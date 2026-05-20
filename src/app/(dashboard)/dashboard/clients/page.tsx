@@ -11,11 +11,20 @@ const CASE_TYPE_LABELS: Record<string, string> = {
 };
 import Link from "next/link";
 
-export default async function ClientsPage() {
+export default async function ClientsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ scope?: string }>;
+}) {
   const session = await getSession();
   if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY", "LAWYER")) redirect("/dashboard");
 
+  const params  = await searchParams;
+  const scope   = params.scope || "all";
+  const isMine  = scope === "mine";
+
   const clients = await prisma.client.findMany({
+    where: isMine ? { cases: { some: { lawyerId: session!.id } } } : {},
     include: {
       _count: { select: { cases: true } },
       cases: {
@@ -25,6 +34,10 @@ export default async function ClientsPage() {
       },
     },
     orderBy: { createdAt: "desc" },
+  });
+
+  const myClientsCount = await prisma.client.count({
+    where: { cases: { some: { lawyerId: session!.id } } },
   });
 
   const canCreate = hasRole(session, "MANAGER", "LEGAL_SECRETARY");
@@ -43,6 +56,21 @@ export default async function ClientsPage() {
             عميل جديد
           </Link>
         )}
+      </div>
+
+      {/* Scope Tabs */}
+      <div className="flex gap-2">
+        <Link href="/dashboard/clients"
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${!isMine ? "text-white shadow-sm" : "border border-white/10 hover:border-[#C5A059]"}`}
+          style={!isMine ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" } : { color: "rgba(255,255,255,0.4)" }}>
+          عملاء المكتب
+        </Link>
+        <Link href="/dashboard/clients?scope=mine"
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${isMine ? "text-white shadow-sm" : "border border-white/10 hover:border-[#C5A059]"}`}
+          style={isMine ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" } : { color: "rgba(255,255,255,0.4)" }}>
+          عملائي
+          <span className="text-[10px] font-black px-1.5 py-0.5 rounded-full bg-white/20">{myClientsCount}</span>
+        </Link>
       </div>
 
       {clients.length === 0 ? (

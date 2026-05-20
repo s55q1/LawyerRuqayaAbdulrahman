@@ -8,12 +8,22 @@ import FinanceClient from "./FinanceClient";
 
 export const dynamic = "force-dynamic";
 
-export default async function FinancePage() {
+export default async function FinancePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ scope?: string }>;
+}) {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) redirect("/dashboard");
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY", "LAWYER")) redirect("/dashboard");
+
+  const params  = await searchParams;
+  const scope   = params.scope || "all";
+  const isMine  = scope === "mine";
+  const isAdmin = hasRole(session, "MANAGER", "LEGAL_SECRETARY");
 
   const [contracts, expenses, cases] = await Promise.all([
     prisma.contract.findMany({
+      where: isMine ? { case: { lawyerId: session!.id } } : {},
       include: {
         client: { select: { id: true, name: true } },
         case:   { select: { id: true, title: true, caseNumber: true } },
@@ -22,10 +32,12 @@ export default async function FinancePage() {
       orderBy: { createdAt: "desc" },
     }),
     prisma.caseExpense.findMany({
+      where: isMine ? { case: { lawyerId: session!.id } } : {},
       include: { case: { select: { id: true, title: true, caseNumber: true } } },
       orderBy: { createdAt: "desc" },
     }),
     prisma.case.findMany({
+      where: isMine ? { lawyerId: session!.id } : {},
       select: { id: true, title: true, caseNumber: true },
       orderBy: { createdAt: "desc" },
     }),
@@ -62,11 +74,25 @@ export default async function FinancePage() {
           <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: "#F8FAFC" }}>الحسابات والمالية</h1>
           <p className="text-sm mt-1" style={{ color: "#4A6080" }}>متابعة العقود والمدفوعات والمصروفات</p>
         </div>
-        <Link href="/dashboard/finance/new"
+        {isAdmin && <Link href="/dashboard/finance/new"
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all hover:opacity-90"
           style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)", color: "#0B1325" }}>
           <Plus className="w-4 h-4" />
           عقد جديد
+        </Link>}
+      </div>
+
+      {/* Scope Tabs */}
+      <div className="flex gap-2">
+        <Link href="/dashboard/finance"
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${!isMine ? "text-[#0B1325] shadow-sm" : "border text-[#4A6080] hover:border-[#C5A059]"}`}
+          style={!isMine ? { background: "linear-gradient(135deg,#C5A059,#E6B980)", borderColor: "transparent" } : { borderColor: "rgba(255,255,255,0.1)" }}>
+          حسابات المكتب
+        </Link>
+        <Link href="/dashboard/finance?scope=mine"
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${isMine ? "text-[#0B1325] shadow-sm" : "border text-[#4A6080] hover:border-[#C5A059]"}`}
+          style={isMine ? { background: "linear-gradient(135deg,#C5A059,#E6B980)", borderColor: "transparent" } : { borderColor: "rgba(255,255,255,0.1)" }}>
+          حساباتي
         </Link>
       </div>
 
