@@ -19,7 +19,7 @@ export default function FloatingContactButtons({ settings }: FloatingContactButt
   const whatsappUrl = `https://wa.me/966${cleanWhatsapp || "538225224"}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن خدماتكم القانونية")}`;
 
   const btnBase =
-    "flex items-center gap-2 pl-3 pr-3 py-2.5 rounded-2xl shadow-lg transition-all duration-300 group overflow-hidden";
+    "flex items-center gap-2 px-3 py-2.5 rounded-2xl shadow-lg transition-all duration-300 group overflow-hidden";
 
   return (
     <div className="fixed left-0 bottom-32 z-50 flex flex-col gap-3 items-start">
@@ -28,6 +28,7 @@ export default function FloatingContactButtons({ settings }: FloatingContactButt
       <a
         href={`tel:${cleanPhone}`}
         aria-label="اتصال"
+        dir="ltr"
         className={`${btnBase} bg-white text-[#0B1325] hover:bg-[#0B1325] hover:text-white w-11 hover:w-36`}
         style={{ transition: "width 0.3s ease, background 0.3s ease, color 0.3s ease" }}
       >
@@ -43,6 +44,7 @@ export default function FloatingContactButtons({ settings }: FloatingContactButt
         target="_blank"
         rel="noopener noreferrer"
         aria-label="واتساب"
+        dir="ltr"
         className={`${btnBase} bg-white text-green-500 hover:bg-green-500 hover:text-white w-11 hover:w-36`}
         style={{ transition: "width 0.3s ease, background 0.3s ease, color 0.3s ease" }}
       >
@@ -56,6 +58,7 @@ export default function FloatingContactButtons({ settings }: FloatingContactButt
       <a
         href={`mailto:${email}`}
         aria-label="البريد الإلكتروني"
+        dir="ltr"
         className={`${btnBase} bg-white text-[#C5A059] hover:bg-[#C5A059] hover:text-white w-11 hover:w-36`}
         style={{ transition: "width 0.3s ease, background 0.3s ease, color 0.3s ease" }}
       >
