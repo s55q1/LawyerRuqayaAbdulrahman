@@ -72,8 +72,8 @@ export default async function AboutPage() {
               </div>
               {/* Small badge */}
               <div className="absolute -bottom-4 -right-2 lg:right-4 bg-[#C5A059] text-white rounded-2xl px-4 py-3 shadow-lg text-center">
-                <div className="text-2xl font-black">+15</div>
-                <div className="text-xs font-bold opacity-90 font-arabic">سنة خبرة</div>
+                <div className="text-2xl font-black">5</div>
+                <div className="text-xs font-bold opacity-90 font-arabic">سنوات خبرة</div>
               </div>
             </div>
 
@@ -91,8 +91,8 @@ export default async function AboutPage() {
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-100">
                 {[
                   { num: "+500", label: "قضية ناجحة" },
-                  { num: "+15", label: "سنة خبرة" },
-                  { num: "+10", label: "محامٍ متخصص" },
+                  { num: "5", label: "سنوات خبرة" },
+                  { num: "5", label: "محامٍ متخصص" },
                 ].map((s, i) => (
                   <div key={i} className="text-center">
                     <div className="text-2xl font-black text-[#C5A059]">{s.num}</div>
