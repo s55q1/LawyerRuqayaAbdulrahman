@@ -38,13 +38,15 @@ function formatSessionTime(date: Date) {
 export default async function SessionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ view?: string }>;
+  searchParams: Promise<{ view?: string; scope?: string }>;
 }) {
   const session = await getSession();
   if (!session) return null;
 
   const params = await searchParams;
   const showPast = params.view === "past";
+  const scope    = params.scope || "all";
+  const isMine   = scope === "mine";
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -52,6 +54,7 @@ export default async function SessionsPage({
   const sessions = await prisma.hearingSession.findMany({
     where: {
       date: showPast ? { lt: today } : { gte: today },
+      ...(isMine ? { case: { lawyerId: session.id } } : {}),
     },
     include: {
       case: {
@@ -59,6 +62,10 @@ export default async function SessionsPage({
       },
     },
     orderBy: { date: showPast ? "desc" : "asc" },
+  });
+
+  const mySessionsCount = await prisma.hearingSession.count({
+    where: { date: { gte: today }, case: { lawyerId: session.id } },
   });
 
   // Group sessions by date label
@@ -80,6 +87,25 @@ export default async function SessionsPage({
           <p className="text-sm mt-1" style={{ color: "#4A6080" }}>
             {sessions.length} جلسة {showPast ? "سابقة" : "قادمة"}
           </p>
+        </div>
+
+        {/* Scope Tabs */}
+        <div className="flex gap-2">
+          <Link
+            href={`/dashboard/sessions${showPast ? "?view=past" : ""}`}
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${!isMine ? "text-white shadow-sm" : "border border-white/10 hover:border-[#C5A059]"}`}
+            style={!isMine ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" } : { color: "rgba(255,255,255,0.4)" }}
+          >
+            جلسات المكتب
+          </Link>
+          <Link
+            href={`/dashboard/sessions?scope=mine${showPast ? "&view=past" : ""}`}
+            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${isMine ? "text-white shadow-sm" : "border border-white/10 hover:border-[#C5A059]"}`}
+            style={isMine ? { background: "linear-gradient(135deg,#C5A059,#D4A373)", color: "#0B1325" } : { color: "rgba(255,255,255,0.4)" }}
+          >
+            جلساتي
+            <span className="text-[10px] font-black px-1.5 py-0.5 rounded-full bg-white/20">{mySessionsCount}</span>
+          </Link>
         </div>
 
         {/* Action Buttons & Toggle past/upcoming */}
