@@ -18,11 +18,11 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-28 pb-14">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 font-arabic leading-tight">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-6 font-arabic leading-tight">
           {title}
         </h1>
 
-        <img src="/images/header-banner.png" alt="" className="w-48 md:w-64 object-contain mb-2" />
+        <img src="/images/header-banner.png" alt="" className="w-64 md:w-80 object-contain mb-6" />
 
         {subtitle && (
           <p className="text-slate-300 text-base max-w-xl mx-auto font-arabic leading-relaxed">
