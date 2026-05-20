@@ -202,20 +202,57 @@ export default async function AboutPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
-              {teamMembers.map((member, idx) => (
+            {/* Director — first member, displayed prominently alone */}
+            {teamMembers[0] && (
+              <div className="flex justify-center mb-12">
+                <div className="group flex flex-col items-center text-center">
+                  <div className="relative mb-5">
+                    {/* Gold ring */}
+                    <div className="absolute -inset-1.5 rounded-3xl opacity-60 group-hover:opacity-100 transition-all duration-300"
+                      style={{ background: "linear-gradient(135deg, #C5A059, #E6B980, #C5A059)" }} />
+                    <div className="relative w-44 h-52 rounded-3xl overflow-hidden shadow-2xl">
+                      {teamMembers[0].photoUrl ? (
+                        <img src={teamMembers[0].photoUrl} alt={teamMembers[0].name}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-[#C5A059] font-bold text-5xl"
+                          style={{ background: "linear-gradient(135deg, #0B1325, #1A253C)" }}>
+                          {teamMembers[0].name.charAt(0)}
+                        </div>
+                      )}
+                      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#0B1325]/80 to-transparent" />
+                    </div>
+                    {/* Badge */}
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold text-white whitespace-nowrap shadow-lg"
+                      style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)" }}>
+                      المؤسسة والرئيسة التنفيذية
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-extrabold text-[#0B1325] font-arabic mt-3">{teamMembers[0].name}</h3>
+                </div>
+              </div>
+            )}
+
+            {/* Divider */}
+            {teamMembers.length > 1 && (
+              <div className="flex items-center gap-4 max-w-md mx-auto mb-10">
+                <div className="flex-1 h-px bg-slate-200" />
+                <span className="text-xs text-slate-400 font-arabic font-semibold whitespace-nowrap">فريق المحامين</span>
+                <div className="flex-1 h-px bg-slate-200" />
+              </div>
+            )}
+
+            {/* Rest of team */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+              {teamMembers.slice(1).map((member, idx) => (
                 <div key={idx} className="group flex flex-col items-center text-center">
-                  {/* Photo with ring */}
                   <div className="relative mb-4">
                     <div className="absolute inset-0 rounded-2xl scale-105 opacity-0 group-hover:opacity-100 transition-all duration-300"
                       style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)", borderRadius: "18px" }} />
                     <div className="relative w-32 h-36 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
                       {member.photoUrl ? (
-                        <img
-                          src={member.photoUrl}
-                          alt={member.name}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        />
+                        <img src={member.photoUrl} alt={member.name}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[#C5A059] font-bold text-4xl"
                           style={{ background: "linear-gradient(135deg, #0B1325, #1A253C)" }}>
@@ -225,7 +262,7 @@ export default async function AboutPage() {
                       <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#0B1325]/80 to-transparent" />
                     </div>
                   </div>
-                  <h3 className="text-sm font-bold text-[#0B1325] font-arabic leading-snug">{member.name}</h3>
+                  <h3 className="text-sm font-bold text-[#0B1325] font-arabic">{member.name}</h3>
                   <p className="text-xs text-[#C5A059] font-semibold font-arabic mt-0.5">{member.title}</p>
                 </div>
               ))}
