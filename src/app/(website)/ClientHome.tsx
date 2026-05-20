@@ -559,7 +559,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               src={`https://maps.google.com/maps?q=${cmsData.settings.mapLat || "26.4333999"},${cmsData.settings.mapLng || "50.117746"}&z=16&output=embed`}
               width="100%"
               height="100%"
-              style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2) sepia(0.1)" }}
+              style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
