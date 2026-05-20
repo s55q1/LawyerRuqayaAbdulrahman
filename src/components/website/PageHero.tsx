@@ -11,19 +11,8 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
   return (
     <section
       className="relative text-white overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)",
-      }}
+      style={{ background: "#0B1325" }}
     >
-      {/* Gold grid */}
-      <div
-        className="absolute inset-0 opacity-[0.04] overflow-hidden"
-        style={{
-          backgroundImage:
-            "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
       {/* Gold top line */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
 
