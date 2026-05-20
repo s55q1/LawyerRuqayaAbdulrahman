@@ -22,7 +22,7 @@ const STATUS_LABEL: Record<string, string> = {
 export default async function CasesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; search?: string }>;
+  searchParams: Promise<{ status?: string; search?: string; scope?: string }>;
 }) {
   const session = await getSession();
   if (!session) return null;
@@ -30,11 +30,14 @@ export default async function CasesPage({
   const params       = await searchParams;
   const statusFilter = params.status || "";
   const search       = params.search || "";
+  const scope        = params.scope || "all";
 
   const isAdmin = session.role === "MANAGER" || session.role === "LEGAL_SECRETARY";
+  const isMine  = scope === "mine";
 
   const cases = await prisma.case.findMany({
     where: {
+      ...(isMine ? { lawyerId: session.id } : {}),
       ...(statusFilter ? { status: statusFilter } : {}),
       ...(search ? {
         OR: [
@@ -48,6 +51,8 @@ export default async function CasesPage({
     orderBy: { createdAt: "desc" },
   });
 
+  const myCasesCount = await prisma.case.count({ where: { lawyerId: session.id } });
+
   const canCreate = isAdmin || session.role === "LAWYER";
 
   return (
@@ -57,12 +62,8 @@ export default async function CasesPage({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "var(--gold-600)" }}>القضايا والملفات</p>
-          <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: "var(--navy-200)" }}>
-            {isAdmin ? "قضايا المكتب" : "قضايا المكتب"}
-          </h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
-            {isAdmin ? `جميع قضايا المكتب (${cases.length})` : `قضايا المكتب — المُسندة إليك: ${cases.filter(c => c.lawyerId === session.id).length}`}
-          </p>
+          <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: "var(--navy-200)" }}>إدارة القضايا</h1>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>{cases.length} قضية</p>
         </div>
         {canCreate && (
           <Link href="/dashboard/cases/new">
@@ -72,6 +73,25 @@ export default async function CasesPage({
             </button>
           </Link>
         )}
+      </div>
+
+      {/* Scope Tabs */}
+      <div className="flex gap-2">
+        <Link
+          href={`/dashboard/cases${statusFilter ? `?status=${statusFilter}` : ""}${search ? `${statusFilter ? "&" : "?"}search=${search}` : ""}`}
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${!isMine ? "bg-[#C5A059] text-white shadow-sm" : "bg-white border border-slate-200 text-slate-500 hover:border-[#C5A059]"}`}
+        >
+          قضايا المكتب
+        </Link>
+        <Link
+          href={`/dashboard/cases?scope=mine${statusFilter ? `&status=${statusFilter}` : ""}${search ? `&search=${search}` : ""}`}
+          className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${isMine ? "bg-[#C5A059] text-white shadow-sm" : "bg-white border border-slate-200 text-slate-500 hover:border-[#C5A059]"}`}
+        >
+          قضاياي
+          <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${isMine ? "bg-white/30 text-white" : "bg-[#C5A059] text-white"}`}>
+            {myCasesCount}
+          </span>
+        </Link>
       </div>
 
       {/* Filters & Search */}
