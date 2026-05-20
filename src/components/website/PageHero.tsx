@@ -11,7 +11,7 @@ interface PageHeroProps {
 export default function PageHero({ title, subtitle, children, decorativeImage }: PageHeroProps) {
   return (
     <section
-      className="relative text-white overflow-visible"
+      className="relative text-white overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)",
         paddingBottom: "80px",
@@ -69,7 +69,7 @@ export default function PageHero({ title, subtitle, children, decorativeImage }:
         style={{ height: "80px" }}
       >
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-          <polygon points="0,80 1440,0 1440,80" fill="white" />
+          <polygon points="0,80 1440,20 1440,80 0,80" fill="white" />
         </svg>
       </div>
     </section>
