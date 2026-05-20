@@ -231,7 +231,9 @@ export default async function AboutPage() {
 
             {/* Rest of team */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              {teamMembers.slice(1).map((member, idx) => (
+              {[...teamMembers.slice(1)].sort((a, b) =>
+                a.name.includes("حصة") || a.name.includes("حصه") ? 1 : b.name.includes("حصة") || b.name.includes("حصه") ? -1 : 0
+              ).map((member, idx) => (
                 <div key={idx} className="group flex flex-col items-center text-center">
                   <div className="relative mb-4">
                     <div className="absolute inset-0 rounded-2xl scale-105 opacity-0 group-hover:opacity-100 transition-all duration-300"
