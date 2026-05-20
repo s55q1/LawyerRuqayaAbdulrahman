@@ -29,16 +29,7 @@ export default async function ServicesPage() {
       <PageHero
         title="الخدمات والإستشارات القانونية"
         subtitle="نقدم خدمات نوعية ومتنوعة لعملائنا مستندة إلى قدراتنا المتخصصة والمهنية العالية."
-      >
-        <div className="flex flex-wrap gap-3 justify-center">
-          <Link href="/contact" className="flex items-center gap-2 border border-[#C5A059]/50 hover:bg-[#C5A059] hover:border-[#C5A059] transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
-            <Phone size={15} /><span>اتصال</span>
-          </Link>
-          <Link href="/contact" className="flex items-center gap-2 border border-white/20 hover:bg-white/10 transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
-            <MessageSquare size={15} /><span>واتساب</span>
-          </Link>
-        </div>
-      </PageHero>
+      />
 
       {/* SERVICES GRID */}
       <div className="bg-[#f5f5f3] py-20 rounded-t-[60px]">

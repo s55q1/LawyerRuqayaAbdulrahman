@@ -22,11 +22,7 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
           {title}
         </h1>
 
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-px bg-[#C5A059]/40" />
-          <div className="w-2 h-2 rotate-45 bg-[#C5A059]" />
-          <div className="w-10 h-px bg-[#C5A059]/40" />
-        </div>
+        <img src="/images/Header Banner.png" alt="" className="w-48 md:w-64 object-contain mb-2" />
 
         {subtitle && (
           <p className="text-slate-300 text-base max-w-xl mx-auto font-arabic leading-relaxed">
