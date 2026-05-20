@@ -109,8 +109,12 @@ export default function NewClientForm() {
         <div>
           <label className={lbl}>رقم الهوية الوطنية</label>
           <input type="text" value={form.nationalId}
-            onChange={(e) => setForm({ ...form, nationalId: e.target.value })}
-            className={inp} dir="ltr" maxLength={10} placeholder="1XXXXXXXXX" />
+            onChange={(e) => setForm({ ...form, nationalId: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+            className={`${inp} ${form.nationalId && form.nationalId.length !== 10 ? "border-red-300 focus:border-red-400 focus:ring-red-400" : ""}`}
+            dir="ltr" maxLength={10} placeholder="1XXXXXXXXX" />
+          {form.nationalId && form.nationalId.length !== 10 && (
+            <p className="text-red-500 text-xs mt-1">رقم الهوية يجب أن يكون 10 أرقام</p>
+          )}
         </div>
       </div>
 

@@ -16,7 +16,14 @@ export default async function ClientsPage() {
   if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY", "LAWYER")) redirect("/dashboard");
 
   const clients = await prisma.client.findMany({
-    include: { _count: { select: { cases: true } } },
+    include: {
+      _count: { select: { cases: true } },
+      cases: {
+        select: { id: true, title: true, caseNumber: true, status: true },
+        orderBy: { createdAt: "desc" },
+        take: 3,
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
 
@@ -89,27 +96,44 @@ export default async function ClientsPage() {
                     <Phone className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#D4A373" }} />
                     <span dir="ltr" className="font-mono text-xs" style={{ color: "#6B82A0" }}>{client.phone}</span>
                   </div>
-                  {client.email && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Mail className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#D4A373" }} />
-                      <span className="truncate text-xs" style={{ color: "#6B82A0" }}>{client.email}</span>
-                    </div>
-                  )}
                   {client.nationalId && (
                     <div className="flex items-center gap-2">
                       <Scale className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#2A3A52" }} />
                       <span dir="ltr" className="font-mono text-xs" style={{ color: "#334865" }}>{client.nationalId}</span>
                     </div>
                   )}
-                  {client.caseType && (
-                    <div className="flex items-center gap-2">
-                      <Briefcase className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#C5A059" }} />
-                      <span className="text-xs font-semibold" style={{ color: "#C5A059" }}>
-                        {CASE_TYPE_LABELS[client.caseType] || client.caseType}
-                      </span>
-                    </div>
-                  )}
                 </div>
+
+                {/* Linked Cases */}
+                {client.cases.length > 0 && (
+                  <div className="mt-3 pt-3 space-y-1.5" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                    {client.cases.map(c => (
+                      <div key={c.id} className="flex items-center gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${c.status === "ACTIVE" ? "bg-emerald-400" : c.status === "WON" ? "bg-blue-400" : "bg-slate-500"}`} />
+                        <span className="text-xs truncate" style={{ color: "#6B82A0" }}>{c.title}</span>
+                        <span className="text-[10px] font-mono flex-shrink-0" style={{ color: "#334865" }}>{c.caseNumber}</span>
+                      </div>
+                    ))}
+                    {client._count.cases > 3 && (
+                      <p className="text-[10px]" style={{ color: "#334865" }}>+{client._count.cases - 3} أخرى</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Add Case Button */}
+                {canCreate && (
+                  <div className="mt-3 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                    <Link
+                      href={`/dashboard/cases/new?clientId=${client.id}`}
+                      onClick={e => e.stopPropagation()}
+                      className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-xs font-bold transition-colors hover:bg-white/10"
+                      style={{ color: "#C5A059", border: "1px solid rgba(197,160,89,0.2)" }}
+                    >
+                      <Plus className="w-3 h-3" />
+                      إضافة قضية
+                    </Link>
+                  </div>
+                )}
               </div>
             </Link>
           ))}
