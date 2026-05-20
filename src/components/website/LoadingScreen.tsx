@@ -12,7 +12,7 @@ export default function LoadingScreen() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center gap-6 transition-opacity duration-500">
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-6 transition-opacity duration-500" style={{ background: "#0B1325" }}>
       {/* Logo with spinning ring */}
       <div className="relative flex items-center justify-center">
         {/* Spinning arc */}
@@ -39,7 +39,7 @@ export default function LoadingScreen() {
           </defs>
         </svg>
         <img
-          src="/images/logo-dark.png"
+          src="/images/logo-white.png"
           alt="شركة رقية عبدالرحمن"
           className="w-56 h-56 object-contain"
         />
