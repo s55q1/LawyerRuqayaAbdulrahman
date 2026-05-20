@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "الاسم والهاتف والرسالة مطلوبة" }, { status: 400 });
     }
 
-    await prisma.contactMessage.create({
+    const msg = await prisma.contactMessage.create({
       data: {
         name: data.name,
         phone: data.phone,
@@ -18,6 +18,24 @@ export async function POST(req: NextRequest) {
         message: data.message,
       },
     });
+
+    // Notify all legal secretaries
+    const secretaries = await prisma.user.findMany({
+      where: { role: "LEGAL_SECRETARY" },
+      select: { id: true },
+    });
+
+    if (secretaries.length > 0) {
+      await prisma.notification.createMany({
+        data: secretaries.map((s) => ({
+          userId: s.id,
+          title: "رسالة جديدة من الموقع",
+          message: `${data.name} — ${data.subject || "استفسار عام"}`,
+          type: "ALERT",
+          actionUrl: "/dashboard/messages",
+        })),
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch {
