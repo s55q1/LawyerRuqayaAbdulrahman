@@ -111,64 +111,47 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
   return (
     <div className="overflow-x-hidden bg-[#0B1325]">
       <style>{`
-        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-        .hero-anim-1 { animation: fadeDown 0.7s ease forwards; }
-        .hero-anim-2 { animation: fadeUp 0.7s ease 0.2s both; }
-        .hero-anim-3 { animation: fadeUp 0.7s ease 0.4s both; }
-        .hero-anim-4 { animation: fadeUp 0.7s ease 0.6s both; }
-        .hero-anim-5 { animation: fadeIn 0.7s ease 0.8s both; }
+        @keyframes heroFadeUp { 0% { opacity:0; transform:translateY(35px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes heroFadeDown { 0% { opacity:0; transform:translateY(-25px); } 100% { opacity:1; transform:translateY(0); } }
       `}</style>
 
       {/* ══════════ HERO SECTION (SLIDER) ══════════ */}
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Background slides (all rendered for smooth crossfade) */}
         {hero_slides.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === activeHero ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeHero ? "opacity-100 z-10" : "opacity-0 z-0"}`}
           >
-            {/* Background Image or Gradient */}
             {slide.img ? (
               <div
-                className={`absolute inset-0 bg-cover bg-center transition-transform duration-[15000ms] ease-linear ${
-                  idx === activeHero ? "scale-110" : "scale-100"
-                }`}
+                className={`absolute inset-0 bg-cover bg-center transition-transform duration-[15000ms] ease-linear ${idx === activeHero ? "scale-110" : "scale-100"}`}
                 style={{ backgroundImage: `url('${slide.img}')` }}
               />
             ) : (
               <div className="absolute inset-0" style={{ background: "linear-gradient(145deg, #040812 0%, #0B1325 50%, #0F1B30 100%)" }} />
             )}
-            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/40" />
+          </div>
+        ))}
 
-            {/* Content */}
-            <div key={idx === activeHero ? animKey : idx} className={`absolute inset-0 z-20 text-white px-4 max-w-5xl mx-auto flex flex-col items-center text-center justify-center transition-opacity duration-700 ${
-              idx === activeHero ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}>
-              
+        {/* Animated content - remounts on slide change to retrigger animations */}
+        {(() => {
+          const slide = hero_slides[activeHero];
+          const s = (f: number) => ({ animation: `heroFadeUp 0.7s ease ${f}s both` });
+          const sd = (f: number) => ({ animation: `heroFadeDown 0.7s ease ${f}s both` });
+          return (
+            <div key={activeHero} className="absolute inset-0 z-20 text-white px-4 max-w-5xl mx-auto flex flex-col items-center text-center justify-center">
               {slide.layout === "motto" ? (
                 <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
-                  <span className="text-white text-lg font-bold mb-4 hero-anim-1">
-                    {(slide as any).topText}
-                  </span>
-                  <img src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-6 object-contain hero-anim-2" />
-                  <div className="mb-6 inline-block hero-anim-3">
-                    <h1 className="text-3xl md:text-4xl font-bold text-white">
-                      {slide.title as string}
-                    </h1>
-                  </div>
-                  <h2 className="text-xl md:text-2xl text-white font-bold mb-6 hero-anim-4">
-                    {(slide as any).subtitle}
-                  </h2>
-                  <p className="text-sm md:text-lg text-slate-200 mb-8 leading-relaxed font-medium hero-anim-4">
-                    {slide.desc as string}
-                  </p>
-                  <div className="hero-anim-5">
+                  <span style={sd(0)} className="text-white text-lg font-bold mb-4">{(slide as any).topText}</span>
+                  <img style={s(0.15)} src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-6 object-contain" />
+                  <h1 style={s(0.3)} className="text-3xl md:text-4xl font-bold text-white mb-6">{slide.title as string}</h1>
+                  <h2 style={s(0.45)} className="text-xl md:text-2xl text-white font-bold mb-6">{(slide as any).subtitle}</h2>
+                  <p style={s(0.55)} className="text-sm md:text-lg text-slate-200 mb-8 leading-relaxed font-medium">{slide.desc as string}</p>
+                  <div style={s(0.7)}>
                     <Link href={slide.buttons[0].link}>
-                      <button className="px-10 py-3 font-bold text-base border-2 border-white text-white hover:bg-white hover:text-navy-900 rounded-md transition-all">
+                      <button className="px-10 py-3 font-bold text-base border-2 border-white text-white hover:bg-white hover:text-[#0B1325] rounded-md transition-all">
                         {slide.buttons[0].text}
                       </button>
                     </Link>
@@ -177,35 +160,19 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               ) : (
                 <>
                   {slide.showLogo && (
-                    <div className="mb-8 text-center mx-auto flex flex-col items-center hero-anim-1">
-                      <img
-                        src="/images/logo.png"
-                        alt="شعار شركة رقية عبدالرحمن"
-                        className="w-64 md:w-80 h-auto object-contain mb-4"
-                      />
+                    <div style={sd(0)} className="mb-8 text-center mx-auto flex flex-col items-center">
+                      <img src="/images/logo.png" alt="شعار شركة رقية عبدالرحمن" className="w-64 md:w-80 h-auto object-contain mb-4" />
                     </div>
                   )}
                   {(slide as any).topText && (
-                    <p className="text-[#C5A059] font-bold text-lg mb-4 tracking-wider hero-anim-1">
-                      {(slide as any).topText}
-                    </p>
+                    <p style={sd(0)} className="text-[#C5A059] font-bold text-lg mb-4 tracking-wider">{(slide as any).topText}</p>
                   )}
-                  <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight max-w-4xl hero-anim-2">
-                    {slide.title as string}
-                  </h1>
-                  <p className="text-sm md:text-lg text-slate-200 max-w-3xl mb-10 leading-relaxed font-medium hero-anim-3">
-                    {slide.desc as string}
-                  </p>
-                  <div className="flex flex-wrap gap-4 justify-center hero-anim-4">
+                  <h1 style={s(0.2)} className="text-3xl md:text-4xl font-bold mb-6 leading-tight max-w-4xl">{slide.title as string}</h1>
+                  <p style={s(0.4)} className="text-sm md:text-lg text-slate-200 max-w-3xl mb-10 leading-relaxed font-medium">{slide.desc as string}</p>
+                  <div style={s(0.6)} className="flex flex-wrap gap-4 justify-center">
                     {slide.buttons.map((btn, bIdx) => (
                       <Link href={btn.link} key={bIdx}>
-                        <button
-                          className={`px-8 py-3 font-bold text-base rounded-md transition-all ${
-                            btn.style === "filled"
-                              ? "bg-[#C5A059] text-white hover:bg-[#B48F48]"
-                              : "border-2 border-white text-white hover:bg-white hover:text-navy-900"
-                          }`}
-                        >
+                        <button className={`px-8 py-3 font-bold text-base rounded-md transition-all ${btn.style === "filled" ? "bg-[#C5A059] text-white hover:bg-[#B48F48]" : "border-2 border-white text-white hover:bg-white hover:text-[#0B1325]"}`}>
                           {btn.text}
                         </button>
                       </Link>
@@ -214,8 +181,8 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
                 </>
               )}
             </div>
-          </div>
-        ))}
+          );
+        })()}
 
         {/* Slider Dots */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
