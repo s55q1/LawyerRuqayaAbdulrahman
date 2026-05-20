@@ -26,27 +26,30 @@ export default async function ServicesPage() {
   return (
     <>
       {/* HERO */}
-      <div className="relative bg-[#0B1325] text-white py-24 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-50"
-          style={{ backgroundImage: `url('/images/hero-slide-3.png')` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1325] via-transparent to-[#0B1325]/80" />
-        <div className="container mx-auto px-6 relative z-10 text-right">
-          <div className="text-sm text-slate-300 mb-4">
+      <div className="relative text-white overflow-hidden" style={{ minHeight: "340px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
+        {/* Grid pattern */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        {/* Glow circles */}
+        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+        <div className="absolute -bottom-10 -left-10 w-60 h-60 rounded-full opacity-8" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+        {/* Gold top line */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
+
+        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center py-24">
+          <div className="text-sm text-slate-400 mb-4 font-arabic">
             <span>الرئيسية</span><span className="mx-2">/</span>
             <span className="text-[#C5A059]">الخدمات والإستشارات القانونية</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">الخدمات والإستشارات القانونية</h1>
-          <p className="text-lg text-slate-200 mb-8 max-w-2xl ml-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 font-arabic">الخدمات والإستشارات القانونية</h1>
+          <p className="text-slate-300 mb-8 max-w-xl font-arabic">
             نقدم خدمات نوعية ومتنوعة لعملائنا مستندة إلى قدراتنا المتخصصة والمهنية العالية.
           </p>
-          <div className="flex flex-wrap gap-4 justify-end">
-            <Link href="/contact" className="flex items-center gap-2 bg-[#0B1325]/60 hover:bg-[#C5A059] transition-colors border border-white/20 px-6 py-2 rounded-full text-sm font-bold">
-              <Phone size={16} /><span>اتصال</span>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link href="/contact" className="flex items-center gap-2 border border-[#C5A059]/50 hover:bg-[#C5A059] hover:border-[#C5A059] transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
+              <Phone size={15} /><span>اتصال</span>
             </Link>
-            <Link href="/contact" className="flex items-center gap-2 bg-[#0B1325]/60 hover:bg-[#C5A059] transition-colors border border-white/20 px-6 py-2 rounded-full text-sm font-bold">
-              <MessageSquare size={16} /><span>واتساب</span>
+            <Link href="/contact" className="flex items-center gap-2 border border-white/20 hover:bg-white/10 transition-all px-6 py-2.5 rounded-full text-sm font-bold font-arabic">
+              <MessageSquare size={15} /><span>واتساب</span>
             </Link>
           </div>
         </div>

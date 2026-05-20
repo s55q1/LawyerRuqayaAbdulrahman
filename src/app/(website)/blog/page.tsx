@@ -25,11 +25,14 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="bg-gradient-to-bl from-primary-900 to-primary-700 py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,89,0.15),transparent)]" />
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-5xl font-bold text-white mb-4 font-arabic">المدونة القانونية</h1>
-          <p className="text-blue-200 text-xl max-w-2xl mx-auto font-arabic">
+      <section className="relative text-white overflow-hidden" style={{ minHeight: "300px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
+        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center py-20">
+          <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] mb-3 font-arabic">المعرفة القانونية</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 font-arabic">المدونة القانونية</h1>
+          <p className="text-slate-300 text-lg max-w-xl mx-auto font-arabic">
             مقالات ومعلومات قانونية مفيدة لمساعدتك في فهم حقوقك والاطلاع على أحدث الأنظمة والتعاميم
           </p>
         </div>
