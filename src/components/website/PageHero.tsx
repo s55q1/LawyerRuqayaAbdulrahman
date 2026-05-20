@@ -11,7 +11,7 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
   return (
     <section
       className="relative text-white overflow-hidden rounded-b-[60px]"
-      style={{ background: "#0B1325", height: "320px" }}
+      style={{ background: "#0B1325", height: "270px" }}
     >
       {/* Gold top line */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
