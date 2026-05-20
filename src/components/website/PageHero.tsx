@@ -13,7 +13,6 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
       className="relative text-white overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)",
-        paddingBottom: "80px",
       }}
     >
       {/* Gold grid */}
@@ -49,15 +48,6 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
         {children && <div className="mt-6">{children}</div>}
       </div>
 
-      {/* Diagonal bottom edge */}
-      <div
-        className="absolute bottom-0 left-0 right-0"
-        style={{ height: "80px" }}
-      >
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-          <polygon points="0,80 1440,0 1440,80" fill="white" />
-        </svg>
-      </div>
     </section>
   );
 }
