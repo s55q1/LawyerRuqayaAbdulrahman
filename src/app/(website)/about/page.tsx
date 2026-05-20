@@ -33,7 +33,6 @@ export default async function AboutPage() {
     <>
       <PageHero
         title="من نحن"
-        decorativeImage={{ src: "/images/header-banner.png", side: "right" }}
       />
 
       {/* ── ABOUT + IMAGE ── */}
