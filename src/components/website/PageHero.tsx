@@ -22,7 +22,7 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
           {title}
         </h1>
 
-        <img src="/images/Header Banner.png" alt="" className="w-48 md:w-64 object-contain mb-2" />
+        <img src="/images/header-banner.png" alt="" className="w-48 md:w-64 object-contain mb-2" />
 
         {subtitle && (
           <p className="text-slate-300 text-base max-w-xl mx-auto font-arabic leading-relaxed">
