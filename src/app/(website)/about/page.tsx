@@ -108,24 +108,28 @@ export default async function AboutPage() {
               <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] font-arabic">توجهنا الاستراتيجي</span>
               <h2 className="text-3xl font-extrabold text-white mt-2 font-arabic">رؤيتنا ورسالتنا</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6" dir="rtl">
               {settings.vision && (
-                <div className="relative rounded-3xl p-8 border border-[#C5A059]/20 overflow-hidden group hover:border-[#C5A059]/50 transition-all duration-300" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-10 -translate-y-8 translate-x-8" style={{ background: "radial-gradient(circle, #C5A059, transparent)" }} />
-                  <div className="w-12 h-12 rounded-2xl bg-[#C5A059]/15 flex items-center justify-center mb-5 border border-[#C5A059]/30">
-                    <Eye className="w-6 h-6 text-[#C5A059]" />
+                <div className="rounded-2xl p-7 border border-[#C5A059]/20" style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-2 h-2 rotate-45 bg-[#C5A059] flex-shrink-0" />
+                    <div className="flex items-center gap-3 flex-1 justify-end">
+                      <div className="h-px bg-[#C5A059]/30 flex-1" />
+                      <h3 className="text-lg font-bold text-[#C5A059] font-arabic whitespace-nowrap">رؤيتنا</h3>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#C5A059] mb-4 font-arabic text-right">رؤيتنا</h3>
                   <p className="text-slate-300 leading-loose text-sm font-arabic text-right">{settings.vision}</p>
                 </div>
               )}
               {settings.mission && (
-                <div className="relative rounded-3xl p-8 border border-[#C5A059]/20 overflow-hidden group hover:border-[#C5A059]/50 transition-all duration-300" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <div className="absolute top-0 left-0 w-24 h-24 rounded-full opacity-10 -translate-y-8 -translate-x-8" style={{ background: "radial-gradient(circle, #C5A059, transparent)" }} />
-                  <div className="w-12 h-12 rounded-2xl bg-[#C5A059]/15 flex items-center justify-center mb-5 border border-[#C5A059]/30">
-                    <Rocket className="w-6 h-6 text-[#C5A059]" />
+                <div className="rounded-2xl p-7 border border-[#C5A059]/20" style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-2 h-2 rotate-45 bg-[#C5A059] flex-shrink-0" />
+                    <div className="flex items-center gap-3 flex-1 justify-end">
+                      <div className="h-px bg-[#C5A059]/30 flex-1" />
+                      <h3 className="text-lg font-bold text-[#C5A059] font-arabic whitespace-nowrap">رسالتنا</h3>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#C5A059] mb-4 font-arabic text-right">رسالتنا</h3>
                   <p className="text-slate-300 leading-loose text-sm font-arabic text-right">{settings.mission}</p>
                 </div>
               )}
