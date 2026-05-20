@@ -41,11 +41,7 @@ export default async function AboutPage() {
         <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 py-32">
           <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.3em] mb-4 font-arabic">شركة رقية عبدالرحمن للمحاماة</span>
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 font-arabic leading-tight">من نحن</h1>
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-px bg-[#C5A059]/40" />
-            <div className="w-3 h-3 rotate-45 bg-[#C5A059]" />
-            <div className="w-12 h-px bg-[#C5A059]/40" />
-          </div>
+          <img src="/images/header-banner.png" alt="" className="w-48 md:w-64 object-contain opacity-90" />
         </div>
       </section>
 
