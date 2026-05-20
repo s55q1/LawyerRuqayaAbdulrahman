@@ -46,6 +46,7 @@ const getServiceIcon = (id: string): string | null => {
 
 export default function HomePage({ cmsData }: { cmsData: CmsData }) {
   const [activeHero, setActiveHero] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
 
   // Use CMS sections for hero banners if available
   const cmsHeroSections = cmsData.sections.filter(s => s.type === "HERO_BANNER" && s.page === "home" && s.active);
@@ -98,13 +99,27 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
     : default_hero_slides;
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveHero((prev) => (prev + 1) % hero_slides.length);
+      setActiveHero((prev) => {
+        const next = (prev + 1) % hero_slides.length;
+        setAnimKey(k => k + 1);
+        return next;
+      });
     }, 6000);
     return () => clearInterval(timer);
   }, [hero_slides.length]);
 
   return (
     <div className="overflow-x-hidden bg-[#0B1325]">
+      <style>{`
+        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        .hero-anim-1 { animation: fadeDown 0.7s ease forwards; }
+        .hero-anim-2 { animation: fadeUp 0.7s ease 0.2s both; }
+        .hero-anim-3 { animation: fadeUp 0.7s ease 0.4s both; }
+        .hero-anim-4 { animation: fadeUp 0.7s ease 0.6s both; }
+        .hero-anim-5 { animation: fadeIn 0.7s ease 0.8s both; }
+      `}</style>
 
       {/* ══════════ HERO SECTION (SLIDER) ══════════ */}
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -130,28 +145,28 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
             <div className="absolute inset-0 bg-black/40" />
 
             {/* Content */}
-            <div className={`absolute inset-0 z-20 text-white px-4 max-w-5xl mx-auto flex flex-col items-center text-center justify-center transition-all duration-1000 ${
-              idx === activeHero ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            <div key={idx === activeHero ? animKey : idx} className={`absolute inset-0 z-20 text-white px-4 max-w-5xl mx-auto flex flex-col items-center text-center justify-center transition-opacity duration-700 ${
+              idx === activeHero ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}>
               
               {slide.layout === "motto" ? (
                 <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
-                  <span className="text-white text-lg font-bold mb-4">
-                    {slide.topText}
+                  <span className="text-white text-lg font-bold mb-4 hero-anim-1">
+                    {(slide as any).topText}
                   </span>
-                  <img src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-6 object-contain" />
-                  <div className="mb-6 inline-block">
+                  <img src="/images/header-banner.png" alt="" className="w-full max-w-lg mx-auto mb-6 object-contain hero-anim-2" />
+                  <div className="mb-6 inline-block hero-anim-3">
                     <h1 className="text-3xl md:text-4xl font-bold text-white">
-                      {slide.title}
+                      {slide.title as string}
                     </h1>
                   </div>
-                  <h2 className="text-xl md:text-2xl text-white font-bold mb-6">
-                    {slide.subtitle}
+                  <h2 className="text-xl md:text-2xl text-white font-bold mb-6 hero-anim-4">
+                    {(slide as any).subtitle}
                   </h2>
-                  <p className="text-sm md:text-lg text-slate-200 mb-8 leading-relaxed font-medium">
-                    {slide.desc}
+                  <p className="text-sm md:text-lg text-slate-200 mb-8 leading-relaxed font-medium hero-anim-4">
+                    {slide.desc as string}
                   </p>
-                  <div>
+                  <div className="hero-anim-5">
                     <Link href={slide.buttons[0].link}>
                       <button className="px-10 py-3 font-bold text-base border-2 border-white text-white hover:bg-white hover:text-navy-900 rounded-md transition-all">
                         {slide.buttons[0].text}
@@ -162,26 +177,26 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
               ) : (
                 <>
                   {slide.showLogo && (
-                    <div className="mb-8 text-center mx-auto flex flex-col items-center">
-                      <img 
-                        src="/images/logo.png" 
+                    <div className="mb-8 text-center mx-auto flex flex-col items-center hero-anim-1">
+                      <img
+                        src="/images/logo.png"
                         alt="شعار شركة رقية عبدالرحمن"
                         className="w-64 md:w-80 h-auto object-contain mb-4"
                       />
                     </div>
                   )}
-                  {slide.topText && (
-                    <p className="text-[#C5A059] font-bold text-lg mb-4 tracking-wider">
-                      {slide.topText}
+                  {(slide as any).topText && (
+                    <p className="text-[#C5A059] font-bold text-lg mb-4 tracking-wider hero-anim-1">
+                      {(slide as any).topText}
                     </p>
                   )}
-                  <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight max-w-4xl">
-                    {slide.title}
+                  <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight max-w-4xl hero-anim-2">
+                    {slide.title as string}
                   </h1>
-                  <p className="text-sm md:text-lg text-slate-200 max-w-3xl mb-10 leading-relaxed font-medium">
-                    {slide.desc}
+                  <p className="text-sm md:text-lg text-slate-200 max-w-3xl mb-10 leading-relaxed font-medium hero-anim-3">
+                    {slide.desc as string}
                   </p>
-                  <div className="flex flex-wrap gap-4 justify-center">
+                  <div className="flex flex-wrap gap-4 justify-center hero-anim-4">
                     {slide.buttons.map((btn, bIdx) => (
                       <Link href={btn.link} key={bIdx}>
                         <button
@@ -218,7 +233,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
 
         {/* Slider Arrows */}
         <button
-          onClick={() => setActiveHero((prev) => (prev - 1 + hero_slides.length) % hero_slides.length)}
+          onClick={() => { setActiveHero((prev) => (prev - 1 + hero_slides.length) % hero_slides.length); setAnimKey(k => k + 1); }}
           className="absolute left-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-gray-500/50 hover:bg-gray-500/70 rounded-full flex items-center justify-center transition-all cursor-pointer"
           aria-label="Previous slide"
         >
@@ -226,7 +241,7 @@ export default function HomePage({ cmsData }: { cmsData: CmsData }) {
         </button>
 
         <button
-          onClick={() => setActiveHero((prev) => (prev + 1) % hero_slides.length)}
+          onClick={() => { setActiveHero((prev) => (prev + 1) % hero_slides.length); setAnimKey(k => k + 1); }}
           className="absolute right-6 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-gray-500/50 hover:bg-gray-500/70 rounded-full flex items-center justify-center transition-all cursor-pointer"
           aria-label="Next slide"
         >
