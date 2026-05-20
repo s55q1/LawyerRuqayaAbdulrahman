@@ -5,10 +5,9 @@ interface PageHeroProps {
   subtitle?: string;
   breadcrumb?: { label: string; href?: string }[];
   children?: React.ReactNode;
-  decorativeImage?: { src: string; side?: "left" | "right" };
 }
 
-export default function PageHero({ title, subtitle, children, decorativeImage }: PageHeroProps) {
+export default function PageHero({ title, subtitle, children }: PageHeroProps) {
   return (
     <section
       className="relative text-white overflow-hidden"
@@ -26,19 +25,6 @@ export default function PageHero({ title, subtitle, children, decorativeImage }:
           backgroundSize: "60px 60px",
         }}
       />
-      {/* Decorative image */}
-      {decorativeImage && (
-        <img
-          src={decorativeImage.src}
-          alt=""
-          className="absolute bottom-16 w-28 md:w-40 object-contain opacity-50 pointer-events-none z-10"
-          style={{
-            [decorativeImage.side === "left" ? "left" : "right"]: "clamp(20px, 6vw, 80px)",
-            transform: decorativeImage.side === "left" ? "rotate(-15deg)" : "rotate(15deg)",
-            filter: "drop-shadow(0 4px 20px rgba(197,160,89,0.4))",
-          }}
-        />
-      )}
       {/* Gold top line */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
 
@@ -69,7 +55,7 @@ export default function PageHero({ title, subtitle, children, decorativeImage }:
         style={{ height: "80px" }}
       >
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-          <polygon points="0,80 1440,20 1440,80 0,80" fill="white" />
+          <polygon points="0,80 1440,0 1440,80" fill="white" />
         </svg>
       </div>
     </section>
