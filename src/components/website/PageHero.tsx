@@ -5,9 +5,10 @@ interface PageHeroProps {
   subtitle?: string;
   breadcrumb?: { label: string; href?: string }[];
   children?: React.ReactNode;
+  decorativeImage?: { src: string; side?: "left" | "right" };
 }
 
-export default function PageHero({ title, subtitle, children }: PageHeroProps) {
+export default function PageHero({ title, subtitle, children, decorativeImage }: PageHeroProps) {
   return (
     <section
       className="relative text-white overflow-visible"
@@ -25,16 +26,19 @@ export default function PageHero({ title, subtitle, children }: PageHeroProps) {
           backgroundSize: "60px 60px",
         }}
       />
-      {/* Glow top-right */}
-      <div
-        className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }}
-      />
-      {/* Glow bottom-left */}
-      <div
-        className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full opacity-8 pointer-events-none"
-        style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }}
-      />
+      {/* Decorative image */}
+      {decorativeImage && (
+        <img
+          src={decorativeImage.src}
+          alt=""
+          className="absolute bottom-16 w-28 md:w-40 object-contain opacity-50 pointer-events-none z-10"
+          style={{
+            [decorativeImage.side === "left" ? "left" : "right"]: "clamp(20px, 6vw, 80px)",
+            transform: decorativeImage.side === "left" ? "rotate(-15deg)" : "rotate(15deg)",
+            filter: "drop-shadow(0 4px 20px rgba(197,160,89,0.4))",
+          }}
+        />
+      )}
       {/* Gold top line */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent" />
 

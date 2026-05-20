@@ -33,9 +33,8 @@ export default async function AboutPage() {
     <>
       <PageHero
         title="من نحن"
-      >
-        <img src="/images/header-banner.png" alt="" className="w-64 md:w-80 object-contain opacity-90 mt-2" />
-      </PageHero>
+        decorativeImage={{ src: "/images/header-banner.png", side: "right" }}
+      />
 
       {/* ── ABOUT + IMAGE ── */}
       <section className="relative bg-white rounded-t-[60px] -mt-10 z-10 py-24 overflow-hidden">

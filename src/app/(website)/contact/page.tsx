@@ -86,16 +86,21 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      <section className="h-96">
-        <iframe
-          src={`https://maps.google.com/maps?q=${mapLat},${mapLng}&z=16&output=embed`}
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      <section className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="rounded-3xl overflow-hidden shadow-2xl border border-gray-200 h-[400px] relative">
+            <iframe
+              src={`https://maps.google.com/maps?q=${mapLat},${mapLng}&z=16&output=embed`}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="موقع مكتب المحامية رقية عبدالرحمن"
+            />
+          </div>
+        </div>
       </section>
     </>
   );
