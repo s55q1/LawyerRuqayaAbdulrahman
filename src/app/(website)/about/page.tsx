@@ -1,4 +1,4 @@
-import { Scale, Award, BookOpen, Users, Shield, Heart, Lock, CheckCircle, Eye, Rocket } from "lucide-react";
+import { Scale, Award, Users, Shield, Lock, CheckCircle, Eye, Rocket } from "lucide-react";
 import Link from "next/link";
 import { getCmsData } from "@/lib/cms";
 
@@ -18,81 +18,128 @@ export default async function AboutPage() {
   })();
 
   const valueIcons = [
-    <Shield key="sh" className="w-10 h-10" />,
-    <Eye key="e" className="w-10 h-10" />,
-    <Award key="a" className="w-10 h-10" />,
-    <Lock key="l" className="w-10 h-10" />,
-    <CheckCircle key="c" className="w-10 h-10" />,
-    <Scale key="s" className="w-10 h-10" />,
-    <Rocket key="r" className="w-10 h-10" />,
-    <Users key="u" className="w-10 h-10" />,
+    <Shield key="sh" className="w-7 h-7" />,
+    <Eye key="e" className="w-7 h-7" />,
+    <Award key="a" className="w-7 h-7" />,
+    <Lock key="l" className="w-7 h-7" />,
+    <CheckCircle key="c" className="w-7 h-7" />,
+    <Scale key="s" className="w-7 h-7" />,
+    <Rocket key="r" className="w-7 h-7" />,
+    <Users key="u" className="w-7 h-7" />,
   ];
 
   return (
     <>
-      {/* Header Banner */}
-      <section className="relative bg-[#0B1325] py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0" style={{ background: "linear-gradient(145deg, #040812 0%, #0B1325 60%, #0F1B30 100%)" }} />
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-4xl font-bold text-white mb-2 font-arabic">من نحن</h1>
-          <div className="w-12 h-1 bg-[#C5A059] mx-auto rounded-full" />
-        </div>
-      </section>
+      {/* ── HERO BANNER ── */}
+      <section className="relative overflow-hidden" style={{ minHeight: "420px", background: "linear-gradient(135deg, #040812 0%, #0B1325 55%, #112040 100%)" }}>
+        {/* Decorative circles */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+        <div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+        {/* Gold grid lines */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
 
-      {/* About Text */}
-      <section className="py-20 bg-white rounded-t-[50px] lg:rounded-t-[100px] -mt-12 relative z-10">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="mb-6">
-                <span className="text-[#C5A059] font-bold text-lg font-arabic">نبذة عنا</span>
-                <div className="w-10 h-0.5 bg-[#C5A059] mt-1" />
-              </div>
-              <p className="text-slate-600 text-base leading-relaxed">
-                {settings.aboutText}
-              </p>
-            </div>
-            <div className="relative justify-self-center lg:justify-self-end">
-              <div className="w-[300px] h-[350px] md:w-[350px] md:h-[400px] relative">
-                <div className="absolute inset-0 border border-slate-300 rounded-[40px] transform translate-x-3 translate-y-3" />
-                <div className="absolute inset-0 rounded-[40px] overflow-hidden border-2 border-white shadow-xl">
-                  <img
-                    src="/images/about-team.jpg"
-                    alt="شركة رقية عبدالرحمن"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 py-32">
+          <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.3em] mb-4 font-arabic">شركة رقية عبدالرحمن للمحاماة</span>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 font-arabic leading-tight">من نحن</h1>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-px bg-[#C5A059]/40" />
+            <div className="w-3 h-3 rotate-45 bg-[#C5A059]" />
+            <div className="w-12 h-px bg-[#C5A059]/40" />
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      {(settings.vision || settings.mission) && (
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              {settings.vision && (
-                <div className="bg-[#0B1325] rounded-3xl p-6 text-white flex flex-col justify-center border border-[#C5A059]/10 shadow-xl">
-                  <div>
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
-                      <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رؤيتنا</h3>
-                    </div>
-                    <p className="text-slate-200 text-base leading-relaxed font-arabic">{settings.vision}</p>
+      {/* ── ABOUT + IMAGE ── */}
+      <section className="relative bg-white rounded-t-[60px] -mt-10 z-10 py-24 overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "radial-gradient(#C5A059 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            {/* Image side */}
+            <div className="relative flex justify-center order-2 lg:order-1">
+              {/* Floating gold frame behind */}
+              <div className="absolute w-[340px] h-[420px] rounded-[48px] border border-[#C5A059]/30 top-6 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-0" style={{ background: "linear-gradient(145deg, rgba(197,160,89,0.06) 0%, transparent 100%)" }} />
+              {/* Main image */}
+              <div className="relative w-[300px] h-[380px] md:w-[340px] md:h-[420px] rounded-[40px] overflow-hidden shadow-2xl border-2 border-white">
+                <img
+                  src="/images/about-team.jpg"
+                  alt="فريق شركة رقية عبدالرحمن"
+                  className="w-full h-full object-cover"
+                />
+                {/* Overlay gradient at bottom */}
+                <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#0B1325]/60 to-transparent" />
+                <div className="absolute bottom-4 right-0 left-0 text-center">
+                  <span className="text-white text-sm font-bold font-arabic">فريق متخصص ومتكامل</span>
+                </div>
+              </div>
+              {/* Small badge */}
+              <div className="absolute -bottom-4 -right-2 lg:right-4 bg-[#C5A059] text-white rounded-2xl px-4 py-3 shadow-lg text-center">
+                <div className="text-2xl font-black">+15</div>
+                <div className="text-xs font-bold opacity-90 font-arabic">سنة خبرة</div>
+              </div>
+            </div>
+
+            {/* Text side */}
+            <div className="order-1 lg:order-2 text-right" dir="rtl">
+              <span className="inline-block text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] mb-3 font-arabic">نبذة عنا</span>
+              <div className="w-10 h-0.5 bg-[#C5A059] mb-6 mr-0" />
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#0B1325] mb-6 leading-snug font-arabic">
+                شريكك القانوني <br />
+                <span style={{ color: "#C5A059" }}>الموثوق والمتخصص</span>
+              </h2>
+              <p className="text-slate-600 text-base leading-loose mb-8 font-arabic">{settings.aboutText}</p>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-100">
+                {[
+                  { num: "+500", label: "قضية ناجحة" },
+                  { num: "+15", label: "سنة خبرة" },
+                  { num: "+10", label: "محامٍ متخصص" },
+                ].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-2xl font-black text-[#C5A059]">{s.num}</div>
+                    <div className="text-xs text-slate-500 font-semibold font-arabic mt-0.5">{s.label}</div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── VISION & MISSION ── */}
+      {(settings.vision || settings.mission) && (
+        <section className="py-20 relative overflow-hidden" style={{ background: "linear-gradient(160deg, #0B1325 0%, #0F1E3A 100%)" }}>
+          <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
+
+          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="text-center mb-14">
+              <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] font-arabic">توجهنا الاستراتيجي</span>
+              <h2 className="text-3xl font-extrabold text-white mt-2 font-arabic">رؤيتنا ورسالتنا</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {settings.vision && (
+                <div className="relative rounded-3xl p-8 border border-[#C5A059]/20 overflow-hidden group hover:border-[#C5A059]/50 transition-all duration-300" style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-10 -translate-y-8 translate-x-8" style={{ background: "radial-gradient(circle, #C5A059, transparent)" }} />
+                  <div className="w-12 h-12 rounded-2xl bg-[#C5A059]/15 flex items-center justify-center mb-5 border border-[#C5A059]/30">
+                    <Eye className="w-6 h-6 text-[#C5A059]" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#C5A059] mb-4 font-arabic text-right">رؤيتنا</h3>
+                  <p className="text-slate-300 leading-loose text-sm font-arabic text-right">{settings.vision}</p>
                 </div>
               )}
               {settings.mission && (
-                <div className="bg-[#0B1325] rounded-3xl p-6 text-white flex flex-col justify-center border border-[#C5A059]/10 shadow-xl">
-                  <div>
-                    <div className="flex items-center gap-4 mb-6">
-                      <h3 className="text-2xl font-bold font-arabic text-[#C5A059]">رسالتنا</h3>
-                      <div className="flex-1 h-0.5 bg-[#C5A059]/30 relative"><div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-[#C5A059] rotate-45" /></div>
-                    </div>
-                    <p className="text-slate-200 text-sm md:text-base leading-relaxed font-arabic">{settings.mission}</p>
+                <div className="relative rounded-3xl p-8 border border-[#C5A059]/20 overflow-hidden group hover:border-[#C5A059]/50 transition-all duration-300" style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="absolute top-0 left-0 w-24 h-24 rounded-full opacity-10 -translate-y-8 -translate-x-8" style={{ background: "radial-gradient(circle, #C5A059, transparent)" }} />
+                  <div className="w-12 h-12 rounded-2xl bg-[#C5A059]/15 flex items-center justify-center mb-5 border border-[#C5A059]/30">
+                    <Rocket className="w-6 h-6 text-[#C5A059]" />
                   </div>
+                  <h3 className="text-xl font-bold text-[#C5A059] mb-4 font-arabic text-right">رسالتنا</h3>
+                  <p className="text-slate-300 leading-loose text-sm font-arabic text-right">{settings.mission}</p>
                 </div>
               )}
             </div>
@@ -100,84 +147,86 @@ export default async function AboutPage() {
         </section>
       )}
 
-      {/* Goals Section (أهدافنا) */}
-      <section className="py-20 bg-[#F8FAFC]" style={{ borderTop: "1px solid rgba(0,0,0,0.03)", borderBottom: "1px solid rgba(0,0,0,0.03)" }}>
+      {/* ── GOALS ── */}
+      <section className="py-24 relative overflow-hidden bg-[#F8FAFC]">
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/30 to-transparent" />
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-14">
-            <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block font-arabic">
-              رؤية مستقبلية
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0B1325] mb-4 font-arabic">
-              أهدافنا
-            </h2>
-            <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full" />
+            <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] font-arabic">رؤية مستقبلية</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0B1325] mt-2 mb-4 font-arabic">أهدافنا</h2>
+            <div className="flex items-center justify-center gap-3">
+              <div className="w-12 h-px bg-[#C5A059]/40" />
+              <div className="w-2 h-2 rotate-45 bg-[#C5A059]" />
+              <div className="w-12 h-px bg-[#C5A059]/40" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto" dir="rtl">
             {[
               "مواكبة تطور الخدمات القانونية بما يتوافق مع رؤية السعودية 2030 م",
               "المحافظة على خصوصية العملاء وسرية بياناتهم",
               "توفير أفضل الحلول القانونية لمجموعة واسعة من المستفيدين داخل المملكة العربية السعودية وخارجها",
               "الالتزام الكامل بأخلاقيات مهنة المحاماة السامية",
-              "تطوير شراكات استراتيجية مع عملائنا طويلة الأجل فهم شركاء النجاح"
+              "تطوير شراكات استراتيجية مع عملائنا طويلة الأجل فهم شركاء النجاح",
             ].map((goal, idx) => (
-              <div key={idx} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-all duration-300">
-                <div className="w-8 h-8 rounded-full bg-[#C5A059]/10 text-[#C5A059] flex items-center justify-center flex-shrink-0 font-bold font-mono">
+              <div key={idx} className="group flex items-start gap-4 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 hover:border-[#C5A059]/40 hover:shadow-md transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-sm transition-all duration-300 group-hover:scale-110"
+                  style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)", color: "#0B1325" }}>
                   {idx + 1}
                 </div>
-                <p className="text-slate-700 text-sm md:text-base font-semibold leading-relaxed font-arabic text-right">
-                  {goal}
-                </p>
+                <p className="text-slate-700 text-sm md:text-base font-semibold leading-relaxed font-arabic pt-1">{goal}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* ── TEAM ── */}
       {teamMembers.length > 0 && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-14 max-w-3xl mx-auto">
-              <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block font-arabic">
-                فريق العمل
-              </span>
-              <h2 className="text-3xl font-bold text-[#0B1325] mb-4 font-arabic">
-                فريقنا
-              </h2>
-              <div className="w-16 h-1 bg-[#C5A059] mx-auto rounded-full mb-6" />
-              <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-medium font-arabic">
-                نفتخر بطاقمنا المميز المكون من نخبة منتقاة من أفضل المحامين الممارسين والمستشارين والخبراء القانونيين في كافة المجالات القانونية، ذوي المؤهلات الأكاديمية العالية والمهارات المتنوعة والخبرات العملية التراكمية التي يضعونها في خدمة عملائنا والمشهود لهم بالمصداقية والأمانة والإخلاص والتفاني في العمل.
+        <section className="py-24 relative overflow-hidden bg-white">
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A059]/20 to-transparent" />
+          {/* Subtle dot pattern */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "radial-gradient(#0B1325 1.5px, transparent 1.5px)", backgroundSize: "28px 28px" }} />
+
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="text-center mb-16">
+              <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] font-arabic">الكادر المتخصص</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#0B1325] mt-2 mb-4 font-arabic">فريقنا القانوني</h2>
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-12 h-px bg-[#C5A059]/40" />
+                <div className="w-2 h-2 rotate-45 bg-[#C5A059]" />
+                <div className="w-12 h-px bg-[#C5A059]/40" />
+              </div>
+              <p className="text-slate-500 max-w-xl mx-auto text-sm leading-loose font-arabic">
+                نخبة من أفضل المحامين والمستشارين القانونيين ذوي الكفاءة والخبرة العالية
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
               {teamMembers.map((member, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center text-center group"
-                >
-                  {/* Photo */}
-                  <div className="w-36 h-36 rounded-2xl mb-4 overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-lg">
-                    {member.photoUrl ? (
-                      <img
-                        src={member.photoUrl}
-                        alt={member.name}
-                        className={`w-full h-full object-cover object-top ${
-                          member.name.includes("عبدالله") ? "scale-110" : ""
-                        }`}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#0B1325] to-[#1A253C] flex items-center justify-center text-[#C5A059] font-bold text-5xl">
-                        {member.name.charAt(0)}
-                      </div>
-                    )}
+                <div key={idx} className="group flex flex-col items-center text-center">
+                  {/* Photo with ring */}
+                  <div className="relative mb-4">
+                    <div className="absolute inset-0 rounded-2xl scale-105 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)", borderRadius: "18px" }} />
+                    <div className="relative w-32 h-36 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                      {member.photoUrl ? (
+                        <img
+                          src={member.photoUrl}
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-[#C5A059] font-bold text-4xl"
+                          style={{ background: "linear-gradient(135deg, #0B1325, #1A253C)" }}>
+                          {member.name.charAt(0)}
+                        </div>
+                      )}
+                      <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-[#0B1325]/80 to-transparent" />
+                    </div>
                   </div>
-
-                  {/* Name */}
-                  <h3 className="text-lg font-bold text-[#0B1325] font-arabic">
-                    {member.name}
-                  </h3>
+                  <h3 className="text-sm font-bold text-[#0B1325] font-arabic leading-snug">{member.name}</h3>
+                  <p className="text-xs text-[#C5A059] font-semibold font-arabic mt-0.5">{member.title}</p>
                 </div>
               ))}
             </div>
@@ -185,20 +234,31 @@ export default async function AboutPage() {
         </section>
       )}
 
-      {/* Values */}
+      {/* ── VALUES ── */}
       {aboutValues.length > 0 && (
-        <section className="py-20 bg-[#0B1325]" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-          <div className="container mx-auto px-6 max-w-6xl">
-            <span className="text-[#C5A059] font-bold text-sm uppercase tracking-widest mb-2 block text-center font-arabic">
-              مبادئنا المهنية
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-14 font-arabic">قيمنا</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="py-24 relative overflow-hidden" style={{ background: "linear-gradient(160deg, #040812 0%, #0B1325 60%, #0F1E3A 100%)" }}>
+          <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#C5A059 1px, transparent 1px), linear-gradient(90deg, #C5A059 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-5" style={{ background: "radial-gradient(circle, #C5A059 0%, transparent 70%)" }} />
+
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            <div className="text-center mb-16">
+              <span className="text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em] font-arabic">مبادئنا المهنية</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 font-arabic">قيمنا</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {aboutValues.map((v, i) => (
-                <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:-translate-y-1 transition-all duration-300">
-                  <div className="text-[#C5A059] mx-auto mb-4 flex justify-center">{valueIcons[i % valueIcons.length]}</div>
-                  <h3 className="text-lg font-bold text-white mb-3 font-arabic">{v.title}</h3>
-                  <p className="text-slate-300 text-xs md:text-sm leading-relaxed">{v.desc}</p>
+                <div key={i} className="group relative rounded-2xl p-6 text-center border border-white/8 hover:border-[#C5A059]/40 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                  style={{ background: "rgba(255,255,255,0.04)" }}>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "radial-gradient(circle at 50% 0%, rgba(197,160,89,0.08) 0%, transparent 70%)" }} />
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center border border-[#C5A059]/20 group-hover:border-[#C5A059]/50 transition-all duration-300"
+                      style={{ background: "rgba(197,160,89,0.08)" }}>
+                      <span className="text-[#C5A059]">{valueIcons[i % valueIcons.length]}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-white mb-2 font-arabic">{v.title}</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-arabic">{v.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -206,17 +266,23 @@ export default async function AboutPage() {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="py-16 bg-white text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-[#0B1325] mb-4 font-arabic">هل تريد التواصل معنا؟</h2>
-          <p className="text-gray-600 mb-8 text-lg font-arabic">تواصل معنا اليوم للحصول على استشارتك القانونية</p>
-          <Link href="/contact">
-            <button className="btn-gold px-8 py-3.5 inline-flex items-center gap-2 transform hover:scale-105 transition-all duration-300">
-              <Users className="w-5 h-5" />
-              <span className="font-bold text-sm">تواصل معنا الآن</span>
-            </button>
-          </Link>
+      {/* ── CTA ── */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "radial-gradient(#C5A059 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <div className="max-w-xl mx-auto">
+            <div className="w-14 h-14 rounded-2xl mx-auto mb-6 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #C5A059, #E6B980)" }}>
+              <Scale className="w-7 h-7 text-white" />
+            </div>
+            <h2 className="text-3xl font-extrabold text-[#0B1325] mb-3 font-arabic">هل تريد التواصل معنا؟</h2>
+            <p className="text-slate-500 mb-8 font-arabic leading-relaxed">تواصل معنا اليوم للحصول على استشارتك القانونية المتخصصة</p>
+            <Link href="/contact">
+              <button className="btn-gold px-10 py-4 inline-flex items-center gap-3 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-[#C5A059]/20 rounded-2xl">
+                <Users className="w-5 h-5" />
+                <span className="font-bold font-arabic">تواصل معنا الآن</span>
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </>
