@@ -9,7 +9,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER")) {
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) {
     return NextResponse.json({ error: "غير مصرح" }, { status: 403 });
   }
 
@@ -39,7 +39,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getSession();
-  if (!hasRole(session, "MANAGER")) {
+  if (!hasRole(session, "MANAGER", "LEGAL_SECRETARY")) {
     return NextResponse.json({ error: "غير مصرح" }, { status: 403 });
   }
 
